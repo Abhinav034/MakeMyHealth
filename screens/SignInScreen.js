@@ -1,17 +1,33 @@
-import React, { useState } from 'react'
-import {View , StyleSheet} from 'react-native'
+import React, {useState} from 'react'
+import firebase from 'firebase'
+import {View , StyleSheet, Alert} from 'react-native'
 import {Text} from 'react-native-elements'
 import SignInComp from '../components/SignInComponent'
-
 
 const SignInScreen = ({navigation})=>{
 
   const [email , setEmail] = useState('')
   const [password , setPassword] = useState('')
 
-  const signInButtonPressed = ()=>{
-      console.log(email)
-      console.log(password)
+  const signInButtonPressed = async()=>{
+   try {
+    await firebase.auth().signInWithEmailAndPassword(email , password)
+    navigation.navigate('HomeScreen')
+   } catch (error) {
+    Alert.alert(
+        "Error",
+        `${error}`
+        ,
+        [
+          {
+            text: "OK",
+            onPress: () => console.log("Ok Pressed"),
+            style: "cancel"
+          },
+        ],
+        { cancelable: false }
+      );
+   }
   }
 
     return  <View style={styles.container}>

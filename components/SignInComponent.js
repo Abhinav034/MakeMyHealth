@@ -1,7 +1,9 @@
-import React from 'react'
-import {Card , Input , Button} from 'react-native-elements'
-
+import React , {useEffect} from 'react'
+import { Input , Button} from 'react-native-elements'
+import firebase from 'firebase'
 const SignInComp = (props)=>{
+
+
     return (<>
       <Input 
       placeholder="email@address.com"

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import {View , StyleSheet} from 'react-native'
+import firebase from 'firebase'
+import {View , StyleSheet , Alert} from 'react-native'
 import {Text , Input} from 'react-native-elements'
 import SignInComp from '../components/SignInComponent'
 
@@ -11,10 +12,37 @@ const RegisterScreen = ({navigation})=>{
   const [password , setPassword] = useState('')
   
 
-  const registerButtonPressed = ()=>{
-      console.log(name)
-      console.log(email)
-      console.log(password)
+  const registerButtonPressed = async ()=>{
+    try {
+        await firebase.auth().createUserWithEmailAndPassword(email,password)
+
+        Alert.alert(
+            "Account created",
+            `Please login to your account`
+            ,
+            [
+              {
+                text: "OK",
+                onPress: () => navigation.navigate('SignInScreen'),
+              },
+            ],
+            { cancelable: false }
+        )
+    } catch (error) {
+        Alert.alert(
+            "Error",
+            `${error}`
+            ,
+            [
+              {
+                text: "OK",
+                onPress: () => console.log("Ok Pressed"),
+                style: "cancel"
+              },
+            ],
+            { cancelable: false }
+        )
+    }
   }
 
     return  <View style={styles.container}>
