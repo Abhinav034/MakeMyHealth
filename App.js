@@ -1,28 +1,17 @@
-import React from 'react';
-import {StyleSheet , View} from 'react-native'
-import {Input, Button, Text } from 'react-native-elements';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createBottomTabNavigator } from 'react-navigation-tabs'
 
-const App = ()=> {
-  return  <View style={styles.container}>
-    <Text h3 style={styles.textStyles}>Sign in to your account</Text>
-    
-      <Input label="Email" />
-      <Input label="Password"/>
-      <Button  title="Sign in"/>
-     
 
-      </View>
-}
+import SignInScreen from './screens/SignInScreen'
+import RegisterScreen from './screens/RegisterScreen'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 0.7,
-    justifyContent: 'center',
-    margin:20
-  },
-  textStyles:{
-    marginBottom: 10
-  }
-});
+const navigator = createSwitchNavigator({
+  authScreens:createStackNavigator({
+    SignInScreen,
+    RegisterScreen
+  }),
 
-export default App
+})
+
+export default createAppContainer(navigator)
