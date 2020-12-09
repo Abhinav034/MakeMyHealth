@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState , useEffect} from 'react'
 import firebase from 'firebase'
 import {View , StyleSheet, Alert} from 'react-native'
 import {Text} from 'react-native-elements'
@@ -28,7 +28,12 @@ const SignInScreen = ({navigation})=>{
         { cancelable: false }
       );
    }
-  }
+  } 
+
+  useEffect(()=>{
+    setEmail('abhi@gmail.com')
+    setPassword('password')
+  },[])
 
     return  <View style={styles.container}>
     <Text h3 style={styles.textStyles} >Sign in to your account</Text>

@@ -5,7 +5,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import SignInScreen from './screens/SignInScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import HomeScreen from './screens/HomeScreen'
-
+import ChartScreen from './screens/ChartScreen'
 
 const navigator = createSwitchNavigator({
   authScreens:createStackNavigator({
@@ -13,7 +13,8 @@ const navigator = createSwitchNavigator({
     RegisterScreen
   }),
   mainScreens:createStackNavigator({
-    HomeScreen
+    HomeScreen,
+    ChartScreen
   })
 
 })
@@ -33,7 +34,7 @@ export default ()=>{
      measurementId: "G-G7471FN2HM"
    }) 
  })
- 
+
   return(
     <App/>
   )

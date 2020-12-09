@@ -11,7 +11,7 @@ const HomeScreen = ({navigation})=>{
   const [age    , setAge]    = useState('')
 
   const analyseButtonPressed = async()=>{
-  
+    navigation.navigate('ChartScreen')
   }
 
     return  <View style={styles.container}>
@@ -28,6 +28,8 @@ const HomeScreen = ({navigation})=>{
 
    age={age}
    ageChanged={setAge}
+
+   analyseButtonPressed={analyseButtonPressed}
    />
    </View>
 }

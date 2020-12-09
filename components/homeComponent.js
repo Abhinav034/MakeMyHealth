@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text , Input , Button} from 'react-native-elements'
+import {Input , Button} from 'react-native-elements'
 
 
 const HomeComp = (props)=>{
@@ -29,7 +29,7 @@ const HomeComp = (props)=>{
       onChangeText={props.ageChanged}
       />
 
-    <Button title="Analyse" />
+    <Button title="Analyse" onPress={props.analyseButtonPressed} />
     </>
 }
 
