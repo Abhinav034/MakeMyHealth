@@ -2,7 +2,6 @@ import React , {useEffect} from 'react'
 import firebase from 'firebase'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { createBottomTabNavigator } from 'react-navigation-tabs'
 import SignInScreen from './screens/SignInScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import HomeScreen from './screens/HomeScreen'
@@ -22,6 +21,7 @@ const navigator = createSwitchNavigator({
 const App =  createAppContainer(navigator)
 
 export default ()=>{
+
   useEffect(()=>{
     firebase.initializeApp( {
      apiKey: "AIzaSyAWFKmI4BDj54x5YLjgvAvR8FoHlaDfo7o",
@@ -33,6 +33,7 @@ export default ()=>{
      measurementId: "G-G7471FN2HM"
    }) 
  })
+ 
   return(
     <App/>
   )
