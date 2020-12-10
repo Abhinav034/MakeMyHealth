@@ -10,7 +10,8 @@
   "dependencies": {
     "@chartiful/react-native-chart-builder": "^0.1.8",
     "@chartiful/react-native-horizontal-bar-graph": "^0.1.2",
-    "@react-native-community/masked-view": "^0.1.10",
+    "@react-native-community/masked-view": "0.1.10",
+    "@react-navigation/native": "^5.8.10",
     "expo": "~39.0.2",
     "expo-status-bar": "~1.0.2",
     "firebase": "^8.1.2",

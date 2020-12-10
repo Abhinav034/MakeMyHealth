@@ -11,26 +11,26 @@ const HomeScreen = ({navigation})=>{
   const [age    , setAge]    = useState('')
 
   const analyseButtonPressed = async()=>{
-    navigation.navigate('ChartScreen')
+    navigation.navigate('AnalysisScreen')
   }
 
     return  <View style={styles.container}>
         <Text h2 style={styles.textStyles}>Enter Your Details</Text>
-   <HomeComp
-   gender = {gender}
-   genderChanged = {setGender}
+        <HomeComp
+        gender = {gender}
+        genderChanged = {setGender}
 
-   height={height}
-   heightChanged={setHeight}
+        height={height}
+        heightChanged={setHeight}
 
-   weight={weight}
-   weightChanged={setWeight}
+        weight={weight}
+        weightChanged={setWeight}
 
-   age={age}
-   ageChanged={setAge}
+        age={age}
+        ageChanged={setAge}
 
-   analyseButtonPressed={analyseButtonPressed}
-   />
+        analyseButtonPressed={analyseButtonPressed}
+        />
    </View>
 }
 

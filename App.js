@@ -6,6 +6,8 @@ import SignInScreen from './screens/SignInScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import HomeScreen from './screens/HomeScreen'
 import ChartScreen from './screens/ChartScreen'
+import AnalysisScreen from './screens/AnalysisScreen'
+import MainScreen from './screens/MainScreen'
 
 const navigator = createSwitchNavigator({
   authScreens:createStackNavigator({
@@ -14,6 +16,8 @@ const navigator = createSwitchNavigator({
   }),
   mainScreens:createStackNavigator({
     HomeScreen,
+    AnalysisScreen,
+    MainScreen,
     ChartScreen
   })
 
