@@ -20,7 +20,6 @@ const navigator = createSwitchNavigator({
     MainScreen,
     ChartScreen
   })
-
 })
 
 const App =  createAppContainer(navigator)
@@ -28,16 +27,17 @@ const App =  createAppContainer(navigator)
 export default ()=>{
 
   useEffect(()=>{
-    firebase.initializeApp( {
-     apiKey: "AIzaSyAWFKmI4BDj54x5YLjgvAvR8FoHlaDfo7o",
-     authDomain: "makemyhealth-83252.firebaseapp.com",
-     projectId: "makemyhealth-83252",
-     storageBucket: "makemyhealth-83252.appspot.com",
-     messagingSenderId: "191370601428",
-     appId: "1:191370601428:web:a8f6c2ef3308bee6c4ec41",
-     measurementId: "G-G7471FN2HM"
-   }) 
- })
+    firebase.initializeApp({
+      apiKey: "AIzaSyCnR8MA4_RCRXy3PVTM_5pzZ9_3iA7L-yw",
+      authDomain: "makemyhealth-e9e31.firebaseapp.com",
+      databaseURL: "https://makemyhealth-e9e31-default-rtdb.firebaseio.com",
+      projectId: "makemyhealth-e9e31",
+      storageBucket: "makemyhealth-e9e31.appspot.com",
+      messagingSenderId: "73699523915",
+      appId: "1:73699523915:web:8e28857efddeea8f577cce",
+      measurementId: "G-0LP46XZ6NQ"
+    }) 
+ },[])
 
   return(
     <App/>

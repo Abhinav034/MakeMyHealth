@@ -3,7 +3,7 @@ import firebase from 'firebase'
 import {View , StyleSheet , Alert} from 'react-native'
 import {Text , Input} from 'react-native-elements'
 import SignInComp from '../components/SignInComponent'
-
+import {fbInsertUserName} from '../firebase/fbCRUD'
 
 const RegisterScreen = ({navigation})=>{
 
@@ -15,6 +15,7 @@ const RegisterScreen = ({navigation})=>{
   const registerButtonPressed = async ()=>{
     try {
         await firebase.auth().createUserWithEmailAndPassword(email,password)
+        fbInsertUserName({name})
 
         Alert.alert(
             "Account created",

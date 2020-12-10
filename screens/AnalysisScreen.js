@@ -1,11 +1,17 @@
-import React from 'react'
+import React , {useEffect} from 'react'
 import {View, StyleSheet} from 'react-native'
 import {Text, Button} from 'react-native-elements'
+import {fbFetch} from '../firebase/fbCRUD'
 
 const AnalysisScreen = ({navigation}) => {
-    // navigation.setOptions({title: 'Report'})
+
+
+    useEffect(()=>{
+        console.log(`new ${fbFetch()}`)
+    })
+   
     return <View style = {styles.container}>
-        <Text>Your BMI: </Text>
+        <Text>Your BMI:  </Text>
         <Text>Ideal weight to be fit: </Text>
         <Text>Time to reach ideal weight: </Text>
         <Button title="Analyse" onPress={() => 
@@ -21,7 +27,11 @@ const AnalysisScreen = ({navigation}) => {
         
     </View>
 }
-
+AnalysisScreen.navigationOptions = ()=>{
+    return{
+        title:'New Screen'
+    }
+}
 const styles = StyleSheet.create({
     container: {
       flex: 0.9,

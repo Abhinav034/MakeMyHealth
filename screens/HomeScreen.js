@@ -1,18 +1,29 @@
-import React, {useState} from 'react'
+import React, {useState , useEffect} from 'react'
 import {View , StyleSheet} from 'react-native'
 import {Text} from 'react-native-elements'
 import HomeComp from '../components/homeComponent'
+import {fbFetchUserName , fbInsertUserData} from '../firebase/fbCRUD'
 
 const HomeScreen = ({navigation})=>{
 
+  const [name   , setName]   = useState('')
   const [gender , setGender] = useState('')
   const [height , setHeight] = useState('')
   const [weight , setWeight] = useState('')
   const [age    , setAge]    = useState('')
 
   const analyseButtonPressed = async()=>{
+
+    fbInsertUserData({gender , height , weight , age})
+
     navigation.navigate('AnalysisScreen')
   }
+
+
+
+  useEffect(()=>{
+    //console.log(fbFetchUserName())
+  })
 
     return  <View style={styles.container}>
         <Text h2 style={styles.textStyles}>Enter Your Details</Text>
