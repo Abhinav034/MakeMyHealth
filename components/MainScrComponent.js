@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import {View, StyleSheet} from 'react-native'
+import {View, StyleSheet, TouchableHighlight} from 'react-native'
 import {Text, Button} from 'react-native-elements'
 import Dialog from 'react-native-dialog'
+import {Stopwatch} from 'react-native-stopwatch-timer'
 
 
 const MainScrComp = (props) =>{
@@ -13,8 +14,12 @@ const MainScrComp = (props) =>{
     const [waterGlass, changedGlasses] = useState(0);
     const [sleepHours, changedSleepHours] = useState(0);
 
+    const [isStopwatchStart, setIsStopwatchStart] = useState(false);
+    const [resetStopwatch, setResetStopwatch] = useState(false);
+
     // let calories = 0, waterGlass = 0, sleepHours = 0;
     let dialogBoxName = '';
+    let walkTime;
 
     const showDialogBox = (value) =>{
         setVisibility(true);
@@ -70,8 +75,29 @@ const MainScrComp = (props) =>{
             </View>
             <View style={styles.horizontal}>
                 <Text style={styles.title}>Daily walking/running: </Text>
-                <Text style={styles.val}>{props.walking}</Text>
-                <Button style={styles.btn} title='Log' onPress = {()=> showDialogBox("walk")}/>
+                {/* <Text style={styles.val}>{props.walking}</Text> */}
+                <Stopwatch style={styles.val} laps start={isStopwatchStart} reset={resetStopwatch} options={options} getTime={(time) => {
+                    walkTime = time
+                }}/>
+                <Text>app. 30 min</Text>
+                {/* <Button style={styles.btn} title='Log' onPress = {()=> {setIsStopwatchStart(!isStopwatchStart);
+              setResetStopwatch(false);
+              }}/> */}
+              </View>
+            <View style={styles.horizontal}>
+                <Button title={!isStopwatchStart ? 'START' : 'STOP'} onPress={() => {
+                    if(isStopwatchStart){
+                        console.log(walkTime);
+                    }
+                setIsStopwatchStart(!isStopwatchStart);
+                setResetStopwatch(false);
+                }}/>
+                
+                <Button title="RESET" onPress={() => {
+                    setIsStopwatchStart(false);
+                    setResetStopwatch(true);
+                }}/>
+                
             </View>
             <View style={styles.horizontal}>
                 <Text style={styles.title}>Daily sleep log: </Text>
@@ -115,8 +141,28 @@ const styles = StyleSheet.create({
     },
     btn:{
         flex: 0,
-    }
+    },
+    buttonText: {
+        flex:0,
+        fontSize: 20,
+        marginTop: 10,
+      },
     
 });
+
+const options = {
+    container: {
+      
+      padding: 5,
+      borderRadius: 5,
+      width: 200,
+      alignItems: 'center',
+    },
+    text: {
+      fontSize: 18,
+      color: '#000',
+      marginLeft: 7,
+    },
+  };
 
  export default MainScrComp
