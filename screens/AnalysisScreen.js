@@ -65,21 +65,21 @@ const AnalysisScreen = ({navigation}) => {
     var Recommendation_calory = (target_weight < weight) ? maintanence_calory - 500 : maintanence_calory + 500
    
     return <View style = {styles.container}>
-        <Text>Your BMI: {bmi} </Text>
+        <Text style={styles.texts}>Your BMI: <Text style={styles.data}> {bmi.toFixed(1)} </Text></Text>
         
-        <Text>Your Category: {category} </Text>
-        <Text>Ideal weight to be fit: {target_weight} </Text>
-        <Text>Time to reach ideal weight: {timeRequired} weeks </Text>
-        <Text> with the rate of 0.5 kg / week</Text>
-        <Text> Daily calory for maintaining weight : {maintanence_calory}</Text>
-        <Text> Daily Calory Intake Recommendation to reach your goal : {Recommendation_calory}</Text>
+        <Text style={styles.texts}>You are: <Text style={styles.data}>{category}</Text> </Text>
+        <Text style={styles.texts}>Ideal weight to be fit: <Text style={styles.data}>{parseInt(target_weight)}</Text> kg</Text>
+        <Text style={styles.texts}>Time to reach Ideal weight: <Text style={styles.data}>{parseInt(timeRequired)}</Text> weeks </Text>
+        <Text style={styles.texts}> with the rate of <Text style={styles.data}>0.5 kg / week</Text></Text>
+        <Text style={styles.texts}> Yout Maintanance calories : <Text style={styles.data}>{parseInt(maintanence_calory)}</Text></Text>
+        <Text style={styles.texts}> Daily Calory Recommendation: <Text style={styles.data}>{parseInt(Recommendation_calory)}</Text></Text>
 
-        <Button title="Analyse" onPress={() => 
+        <Button style={styles.texts} title="Show Action Items" onPress={() => 
             { 
             navigation.navigate('MainScreen')
         }
         }/>
-        <Button title="Re-analyse" onPress={() => 
+        <Button style={styles.texts} title="Re-analyse" onPress={() => 
             { 
             navigation.goBack()
         }
@@ -89,17 +89,27 @@ const AnalysisScreen = ({navigation}) => {
 }
 AnalysisScreen.navigationOptions = ()=>{
     return{
-        title:'New Screen'
+        title:'Analysis Report'
     }
 }
 const styles = StyleSheet.create({
     container: {
       flex: 0.9,
-      margin:20
+      margin:15
     },
     textStyles:{
         marginBottom: 50,
         color:'grey'
+    },
+    texts: {
+        margin: 20,
+        fontWeight: 'bold',
+        fontSize: 18,
+        
+    },
+    data: {
+        color: 'green'
+        
     }
 });
 
