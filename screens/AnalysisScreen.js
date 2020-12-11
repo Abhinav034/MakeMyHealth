@@ -7,9 +7,9 @@ import {fbFetch} from '../firebase/fbCRUD'
 const AnalysisScreen = ({navigation}) => {
 
 
-    // useEffect(()=>{
-    //     console.log(`new ${fbFetch()}`)
-    // })
+    useEffect(()=>{
+        console.log(`new ${fbFetch()}`)
+    })
 
     var gender = 'male'
     var height = 160 // cm

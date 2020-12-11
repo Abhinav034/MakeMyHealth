@@ -1,22 +1,40 @@
 import React, {useState , useEffect} from 'react'
-import {View , StyleSheet} from 'react-native'
+import {View , StyleSheet, Alert} from 'react-native'
 import {Text} from 'react-native-elements'
+import { HeaderTitle } from 'react-navigation-stack'
 import HomeComp from '../components/homeComponent'
 import {fbFetchUserName , fbInsertUserData} from '../firebase/fbCRUD'
 
 const HomeScreen = ({navigation})=>{
 
   const [name   , setName]   = useState('')
-  const [gender , setGender] = useState('')
-  const [height , setHeight] = useState('')
-  const [weight , setWeight] = useState('')
-  const [age    , setAge]    = useState('')
+  const [gender , setGender] = useState('male')
+  const [feet , setFeet] = useState(5)
+  const [inch , setInch] = useState(7)
+  const [weight , setWeight] = useState(70)
+  const [age    , setAge]    = useState(25)
+  const [lifestyle , setLifestyle] = useState('')
 
   const analyseButtonPressed = async()=>{
 
-    fbInsertUserData({gender , height , weight , age})
-
-    navigation.navigate('AnalysisScreen')
+    if (lifestyle!== ''){
+      fbInsertUserData({gender , feet , inch , weight , age , lifestyle})
+      navigation.navigate('AnalysisScreen')
+    }else{
+      Alert.alert(
+        "Error",
+        `Please select your lifestyle`
+        ,
+        [
+          {
+            text: "OK",
+            onPress: () => console.log("Ok Pressed"),
+            style: "cancel"
+          },
+        ],
+        { cancelable: false }
+      );
+    }
   }
 
 
@@ -26,13 +44,14 @@ const HomeScreen = ({navigation})=>{
   })
 
     return  <View style={styles.container}>
-        <Text h2 style={styles.textStyles}>Enter Your Details</Text>
         <HomeComp
-        gender = {gender}
         genderChanged = {setGender}
+        
+        feet={feet}
+        feetChanged={setFeet}
 
-        height={height}
-        heightChanged={setHeight}
+        inch={inch}
+        inchChanged={setInch}
 
         weight={weight}
         weightChanged={setWeight}
@@ -40,8 +59,19 @@ const HomeScreen = ({navigation})=>{
         age={age}
         ageChanged={setAge}
 
+        lifestyle={lifestyle}
+        lifestyleChanged = {setLifestyle}
+
         analyseButtonPressed={analyseButtonPressed}
         />
+        {console.log(gender),
+        console.log(feet),
+        console.log(inch),
+        console.log(weight),
+        console.log(age),
+        console.log(lifestyle)
+
+        }
    </View>
 }
 
@@ -49,19 +79,16 @@ const HomeScreen = ({navigation})=>{
 
 const styles = StyleSheet.create({
     container: {
-      flex: 0.9,
-      justifyContent: 'center',
-      margin:20
-    },
-    textStyles:{
-        marginBottom: 50,
-        color:'grey'
+      flex: 1,
+      marginTop:40,
+      marginHorizontal:20,
+    
     }
   });
 
   HomeScreen.navigationOptions = ()=>{
       return{
-        headerShown: false,
+        headerShown:false,
       }
   }
 
