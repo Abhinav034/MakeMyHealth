@@ -38,19 +38,24 @@ const MainScrComp = (props) =>{
         changedCat(value);
     }
 
+    
     const cancelDialogBox = () => {
         setVisibility(false);
     }
     const okDialogBox = () => {
+        var newVal = null;
         switch(category){
             case "cal":
-                changedCalories(dbVal);
+                newVal = parseInt(dbVal) + parseInt(calories) 
+                changedCalories(newVal);
             break;
             case "water":
-                changedGlasses(dbVal);
+                newVal = parseInt(dbVal) + parseInt(waterGlass) 
+                changedGlasses(newVal);
             break;
             case "sleep":
-                changedSleepHours(dbVal);
+                newVal = parseInt(dbVal) + parseInt(sleepHours) 
+                changedSleepHours(newVal);
             break;
         }
         setVisibility(false);
