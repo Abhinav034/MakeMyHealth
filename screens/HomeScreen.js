@@ -8,7 +8,7 @@ import {fbFetchUserName , fbInsertUserData} from '../firebase/fbCRUD'
 const HomeScreen = ({navigation})=>{
 
   const [name   , setName]   = useState('')
-  const [gender , setGender] = useState('male')
+  const [gender , setGender] = useState('M')
   const [feet , setFeet] = useState(5)
   const [inch , setInch] = useState(7)
   const [weight , setWeight] = useState(70)

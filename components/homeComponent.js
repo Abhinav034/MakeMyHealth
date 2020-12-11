@@ -15,10 +15,10 @@ const HomeComp = (props)=>{
             setIndex(index)
             switch(index){
               case 0:
-                  props.genderChanged('male')
+                  props.genderChanged('M')
               break;
               case 1:
-                  props.genderChanged('female')
+                  props.genderChanged('F')
               break;
               
           }
@@ -110,9 +110,12 @@ const HomeComp = (props)=>{
      <View style={{marginTop:40 , zIndex:10}}>
       <DropDownPicker
             items={[
-                {label: 'Normal', value: 'normal'},
-                {label: 'Sedentary', value: 'sedentary'},
-                {label: 'Active', value: 'active'}
+                {label: 'sedentary (little or no exercise)', value: 1.2},
+                {label: 'lightly active (light exercise/sports 1-3 days/week)', value: 1.375},
+                {label: 'moderately active(moderate exercise/sports 3-5 days/week)', value: 1.55},
+                {label: 'very active(hard exercise/sports 6-7 days a week)', value: 1.725},
+                {label: 'extra active(very hard exercise/sports & physical job or 2x training) ', value: 1.9}
+
             ]}
             
             placeholder='Your Lifestyle'

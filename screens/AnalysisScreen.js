@@ -1,25 +1,34 @@
-import React , {useEffect} from 'react'
+import React , {useState,useEffect} from 'react'
 import {View, StyleSheet} from 'react-native'
 import {Text, Button} from 'react-native-elements'
+import { set } from 'react-native-reanimated';
 
 import {fbFetch} from '../firebase/fbCRUD'
 
+
 const AnalysisScreen = ({navigation}) => {
 
+    const [userData , setData] = useState({})
+   
 
-    useEffect(()=>{
-        console.log(`new ${fbFetch()}`)
-    })
+     useEffect(() => {
+        var userData = fbFetch();
+        setData(userData)
+    },[])
 
-    var gender = 'male'
-    var height = 160 // cm
+
+
+    console.log("we are using following data")
+    console.log(userData)
+
+    var height = ((12*userData.feet) + (userData.inch))*2.54 //cm
     var height_m = height/100
     console.log(`height in meters: ${height_m}`)
 
-    var weight = 30 // kg
+    var weight = userData.weight // kg
     
     var target_bmi = null
-    var age = 28 //years
+   
 
     var bmi = weight/Math.pow(height_m,2)
     var category = null;
@@ -45,31 +54,40 @@ const AnalysisScreen = ({navigation}) => {
     var target_weight = target_bmi*Math.pow(height_m,2)
     var timeRequired = Math.abs(target_weight - weight)/0.5
 
+    console.log(weight)
+    console.log(target_weight)
+    console.log(timeRequired)
+
     var bmr = null
     
 
-    if (gender == 'male'){
+    if (userData.gender == 'M'){
 
-        bmr =  66 + (6.3*weight*2.205) + (12.9*height/2.54) - (6.8*age)
+        bmr =  66 + (6.3*weight*2.205) + (12.9*height/2.54) - (6.8*userData.age)
 
-    }else if(gender == 'female'){
+    }else if(userData.gender == 'F'){
 
-        bmr =  655 + (4.3*weight*2.205) + (4.7*height/2.54) - (4.7*age)
+        bmr =  655 + (4.3*weight*2.205) + (4.7*height/2.54) - (4.7*userData.age)
 
     }
-    
+    var maintanence_calory = bmr*userData.lifestyle // for light exercise people
+    var Recommendation_calory = (target_weight < weight) ? maintanence_calory - 500 :
+             (target_weight == weight ? maintanence_calory : maintanence_calory + 500)
+
     
 
 
-    var maintanence_calory = bmr*1.375 // for light exercise people
-    var Recommendation_calory = (target_weight < weight) ? maintanence_calory - 500 : maintanence_calory + 500
+    
    
     return <View style = {styles.container}>
+
+    
+        
         <Text style={styles.texts}>Your BMI: <Text style={styles.data}> {bmi.toFixed(1)} </Text></Text>
         
         <Text style={styles.texts}>You are: <Text style={styles.data}>{category}</Text> </Text>
-        <Text style={styles.texts}>Ideal weight to be fit: <Text style={styles.data}>{parseInt(target_weight)}</Text> kg</Text>
-        <Text style={styles.texts}>Time to reach Ideal weight: <Text style={styles.data}>{parseInt(timeRequired)}</Text> weeks </Text>
+        <Text style={styles.texts}>Ideal weight to be fit: <Text style={styles.data}>{Math.round(target_weight)}</Text> kg</Text>
+        <Text style={styles.texts}>Time to reach Ideal weight: <Text style={styles.data}>{Math.round(timeRequired)}</Text> weeks </Text>
         <Text style={styles.texts}> with the rate of <Text style={styles.data}>0.5 kg / week</Text></Text>
         <Text style={styles.texts}> Yout Maintanance calories : <Text style={styles.data}>{parseInt(maintanence_calory)}</Text></Text>
         <Text style={styles.texts}> Daily Calory Recommendation: <Text style={styles.data}>{parseInt(Recommendation_calory)}</Text></Text>

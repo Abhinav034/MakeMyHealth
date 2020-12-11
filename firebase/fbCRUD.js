@@ -42,9 +42,10 @@ const fbFetch = ()=>{
     const user = firebase.auth().currentUser
     firebase.database().ref(`/users/${user.uid}/data`)
     .on('value' , snapshot =>{
-        obj = snapshot
+        obj = snapshot.val()
     })
-    console.log(obj)
+    console.log('fetch')
+    console.log(obj.age)
     return obj
 }
 
