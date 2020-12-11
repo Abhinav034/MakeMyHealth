@@ -13,7 +13,7 @@ const SignInScreen = ({navigation})=>{
   const signInButtonPressed = async()=>{
    try {
     await firebase.auth().signInWithEmailAndPassword(email , password)
-    navigation.navigate('HomeScreen')
+    navigation.navigate('AnalysisScreen')
    } catch (error) {
     Alert.alert(
         "Error",
