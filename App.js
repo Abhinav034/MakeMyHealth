@@ -8,21 +8,23 @@ import HomeScreen from './screens/HomeScreen'
 import ChartScreen from './screens/ChartScreen'
 import AnalysisScreen from './screens/AnalysisScreen'
 import MainScreen from './screens/MainScreen'
+import NutritionScreen from './screens/NutritionInfo'
 
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
-
+import { Header } from 'react-native/Libraries/NewAppScreen'
+const AuthStack = createStackNavigator();
+ 
 const HomeStack = createStackNavigator();
 function HomeStackScreen(){
   return(
     <HomeStack.Navigator>
-      <HomeStack.Screen name="SignInScreen" component={SignInScreen}/>
-      <HomeStack.Screen name="RegisterScreen" component={RegisterScreen}/>
-      <HomeStack.Screen name="HomeScreen" component={HomeScreen}/>
-      <HomeStack.Screen name="AnalysisScreen" component={AnalysisScreen}/>
+      <HomeStack.Screen name="Screen" component={HomeScreen} options={{
+        headerShown:false,
+      }}/>
+      <HomeStack.Screen name="AnalysisScreen" component={AnalysisScreen} />
       <HomeStack.Screen name="MainScreen" component={MainScreen}/>
-
       <HomeStack.Screen name="ChartScreen" component={ChartScreen}/>
     </HomeStack.Navigator>
   )
@@ -30,10 +32,12 @@ function HomeStackScreen(){
 
 function NutritionInfo() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Nutrition info Tab!</Text>
-    </View>
-  );
+      <HomeStack.Navigator>
+          <HomeStack.Screen name="NutritionScreen" component={NutritionScreen} options={{
+        headerShown:false,
+      }}/>
+        </HomeStack.Navigator>
+  )
 }
 
 function DietPlan() {
@@ -44,12 +48,21 @@ function DietPlan() {
   );
 }
 
+
 const Tab = createBottomTabNavigator();
+
+function tabScreens() {
+    return  <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeStackScreen}/>
+        <Tab.Screen name="Nutrition info" component={NutritionInfo}/>
+        <Tab.Screen name="Diet Plan" component={DietPlan}/>
+      </Tab.Navigator>
+}
 
 export default ()=>{
   
   useEffect(()=>{
-    firebase.initializeApp({
+     firebase.initializeApp({
       apiKey: "AIzaSyCnR8MA4_RCRXy3PVTM_5pzZ9_3iA7L-yw",
       authDomain: "makemyhealth-e9e31.firebaseapp.com",
       databaseURL: "https://makemyhealth-e9e31-default-rtdb.firebaseio.com",
@@ -59,16 +72,23 @@ export default ()=>{
       appId: "1:73699523915:web:8e28857efddeea8f577cce",
       measurementId: "G-0LP46XZ6NQ"
     }) 
-    console.log(firebase.auth().currentUser)
  },[])
 
   return(
+    
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeStackScreen}/>
-        <Tab.Screen name="Nutrition info" component={NutritionInfo}/>
-        <Tab.Screen name="Diet Plan" component={DietPlan}/>
-      </Tab.Navigator>
+
+    <AuthStack.Navigator>
+    <AuthStack.Screen name="SignInScreen" component={SignInScreen}/>
+    <AuthStack.Screen name="RegisterScreen" component={RegisterScreen}/>
+    <AuthStack.Screen name="Home" component={tabScreens} options={{
+        headerShown:false,
+      }}/>
+    
+
+    </AuthStack.Navigator>
+      
+      
     </NavigationContainer>
   )
 }
