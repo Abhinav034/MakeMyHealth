@@ -73,16 +73,9 @@ const AnalysisScreen = ({navigation}) => {
     var maintanence_calory = bmr*userData.lifestyle // for light exercise people
     var Recommendation_calory = (target_weight < weight) ? maintanence_calory - 500 :
              (target_weight == weight ? maintanence_calory : maintanence_calory + 500)
-
-    
-
-
-    
    
     return <View style = {styles.container}>
 
-    
-        
         <Text style={styles.texts}>Your BMI: <Text style={styles.data}> {bmi.toFixed(1)} </Text></Text>
         
         <Text style={styles.texts}>You are: <Text style={styles.data}>{category}</Text> </Text>
@@ -95,11 +88,6 @@ const AnalysisScreen = ({navigation}) => {
         <Button style={styles.texts} title="Show Action Items" onPress={() => 
             { 
             navigation.navigate('MainScreen')
-        }
-        }/>
-        <Button style={styles.texts} title="Re-analyse" onPress={() => 
-            { 
-            navigation.goBack()
         }
         }/>
         
