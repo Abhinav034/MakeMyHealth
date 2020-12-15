@@ -7,10 +7,11 @@ import DropDownPicker from 'react-native-dropdown-picker'
 const HomeComp = (props)=>{
     const [index , setIndex] = useState(0)
 
-    return <>      
+    return <View>      
       <View style={{marginVertical: 10 , justifyContent:'center'}}> 
-      <Text h3 style={{marginBottom: 15 }}>Gender</Text>
-      <ButtonGroup
+      <Text h4 style={{marginBottom: 15 , color:"white" }}>Gender</Text>
+      <ButtonGroup selectedButtonStyle={{backgroundColor:'#991c1c'}}
+
           onPress={index => {
             setIndex(index)
             switch(index){
@@ -25,21 +26,22 @@ const HomeComp = (props)=>{
           }}
           selectedIndex={index}
           buttons={['Male' , 'Female']}
-          containerStyle={{height: 40}}
+          containerStyle={{height: 40 , backgroundColor:'transparent'}}
         />
       </View>
 
-      <Text h3 style={{marginVertical: 15}}>Height</Text>
+      <Text h4 style={{marginVertical: 15 , color:"white"}}>Height</Text>
       <View style={{flexDirection:'row' , width:Dimensions.get('window').width , marginBottom: 20}}>
-        <Text h4 style={{marginTop:4 , marginRight:3 , marginLeft: 0, color:'grey'}}>Ft:</Text>
+        <Text h4 style={{marginTop:4 , marginRight:3 , marginLeft: 0, color:'white'}}>Ft:</Text>
       <InputSpinner
           rounded={false}
           showBorder
           fontSize={18}
+          inputStyle={{color:'white'}}
           height={35}
           width={Dimensions.get('window').width/2-50}
           max={8}
-          min={4}
+          min={0}
           step={1}
           colorMax={"#f04048"}
           colorMin={"#40c5f4"}
@@ -48,14 +50,15 @@ const HomeComp = (props)=>{
               props.feetChanged(num);
           }}
       />
-      <Text h4 style={{marginTop:4 , marginHorizontal:3, color:'grey'}}>In:</Text>
+      <Text h4 style={{marginTop:4 , marginHorizontal:3, color:'white'}}>In:</Text>
        <InputSpinner
           rounded={false}
           showBorder
           fontSize={18}
+          inputStyle={{color:'white'}}
           height={35}
           width={Dimensions.get('window').width/2-50}
-          max={12}
+          max={11}
           min={0}
           step={1}
           colorMax={"#f04048"}
@@ -66,17 +69,18 @@ const HomeComp = (props)=>{
           }}
       />
       </View>
-      <Text h3 style={{marginVertical: 15}}>Weight</Text>
+      <Text h4 style={{marginVertical: 15 , color:"white"}}>Weight</Text>
       <View style={{flexDirection:'row'}}>
-      <Text h4 style={{marginTop:4 , marginHorizontal:20 , color:'grey'}}>Kg:</Text>
+      <Text h4 style={{marginTop:4 , marginHorizontal:20 , color:'white'}}>Kg:</Text>
       <InputSpinner
           rounded={false}
           showBorder
           fontSize={20}
+          inputStyle={{color:'white'}}
           height={35}
           width={Dimensions.get('window').width/2}
           max={200}
-          min={30}
+          min={0}
           step={1}
           colorMax={"#f04048"}
           colorMin={"#40c5f4"}
@@ -87,16 +91,17 @@ const HomeComp = (props)=>{
       />
       </View>
 
-      <Text h3 style={{marginVertical: 15}}>Age</Text>
+      <Text h4 style={{marginVertical: 15 , color:"white"}}>Age</Text>
       <View style={{marginHorizontal: 70}}>
       <InputSpinner
           rounded={false}
           showBorder
           fontSize={20}
+          inputStyle={{color:'white'}}
           height={35}
           width={Dimensions.get('window').width/2}
           max={100}
-          min={15}
+          min={0}
           step={1}
           colorMax={"#f04048"}
           colorMin={"#40c5f4"}
@@ -107,10 +112,10 @@ const HomeComp = (props)=>{
       />
       </View>
 
-     <View style={{marginTop:40 , zIndex:10}}>
+     <View style={{marginTop:40,height:190, zIndex:1}}>
       <DropDownPicker
             items={[
-                {label: 'sedentary (little or no exercise)', value: 1.2},
+                {label: 'sedentary (little or no exercise)', value: 1.2 , color:'white'},
                 {label: 'lightly active (light exercise/sports 1-3 days/week)', value: 1.375},
                 {label: 'moderately active(moderate exercise/sports 3-5 days/week)', value: 1.55},
                 {label: 'very active(hard exercise/sports 6-7 days a week)', value: 1.725},
@@ -119,14 +124,16 @@ const HomeComp = (props)=>{
             ]}
             
             placeholder='Your Lifestyle'
+            labelStyle={{color:'white'}}
             defaultValue={null}
             containerStyle={{height: 40}}
-            style={{backgroundColor: '#fafafa'}}
+            style={{backgroundColor: 'transparent'}}
+
             itemStyle={{
                 justifyContent: 'flex-start',
-         
             }}
-            dropDownStyle={{backgroundColor: '#fafafa'}}
+            
+            dropDownStyle={{backgroundColor: 'transparent'}}
             onChangeItem={item => props.lifestyleChanged(item.value)}
       />
 
@@ -134,14 +141,17 @@ const HomeComp = (props)=>{
       
 
 
-    <Button style={{marginTop: 50}} title="Analyse" onPress={props.analyseButtonPressed} />
+    <Button buttonStyle={{backgroundColor:'red'}} title="Analyse" onPress={props.analyseButtonPressed} />
   
-    </>
+    </View>
 }
 
 const styles = StyleSheet.create({
   textStyles:{
     marginBottom: 10,
+  },
+  buttonStyle:{
+    
   }
 })
 

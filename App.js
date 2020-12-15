@@ -25,7 +25,7 @@ const navigator = createSwitchNavigator({
 const App =  createAppContainer(navigator)
 
 export default ()=>{
-
+  
   useEffect(()=>{
     firebase.initializeApp({
       apiKey: "AIzaSyCnR8MA4_RCRXy3PVTM_5pzZ9_3iA7L-yw",
@@ -37,6 +37,7 @@ export default ()=>{
       appId: "1:73699523915:web:8e28857efddeea8f577cce",
       measurementId: "G-0LP46XZ6NQ"
     }) 
+    console.log(firebase.auth().currentUser)
  },[])
 
   return(

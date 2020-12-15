@@ -1,9 +1,7 @@
 import React, {useState , useEffect} from 'react'
-import {View , StyleSheet, Alert} from 'react-native'
-import {Text} from 'react-native-elements'
-import { HeaderTitle } from 'react-navigation-stack'
+import {View , StyleSheet, Alert , ImageBackground} from 'react-native'
 import HomeComp from '../components/homeComponent'
-import {fbFetchUserName , fbInsertUserData} from '../firebase/fbCRUD'
+import {fbInsertUserData} from '../firebase/fbCRUD'
 
 const HomeScreen = ({navigation})=>{
 
@@ -43,7 +41,14 @@ const HomeScreen = ({navigation})=>{
     //console.log(fbFetchUserName())
   })
 
-    return  <View style={styles.container}>
+    return <ImageBackground source={require('../images/test.jpg')} style={{
+      width: '100%',
+      height: '100%',
+      flex: 1 
+}}>
+      <View style={{flex:1}}>
+      <View style={styles.container}>
+      
         <HomeComp
         genderChanged = {setGender}
         
@@ -64,6 +69,7 @@ const HomeScreen = ({navigation})=>{
 
         analyseButtonPressed={analyseButtonPressed}
         />
+        
         {console.log(gender),
         console.log(feet),
         console.log(inch),
@@ -73,6 +79,8 @@ const HomeScreen = ({navigation})=>{
 
         }
    </View>
+    </View>
+    </ImageBackground>
 }
 
 
@@ -82,7 +90,6 @@ const styles = StyleSheet.create({
       flex: 1,
       marginTop:40,
       marginHorizontal:20,
-    
     }
   });
 

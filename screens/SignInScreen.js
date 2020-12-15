@@ -32,6 +32,7 @@ const SignInScreen = ({navigation})=>{
   } 
 
   useEffect(()=>{
+    
     setEmail('abhi@gmail.com')
     setPassword('password')
   },[])
@@ -53,6 +54,7 @@ const SignInScreen = ({navigation})=>{
     lowerButtonPressed={()=>navigation.navigate('RegisterScreen')}
     />
    </View>
+ 
 }
 
 
