@@ -1,7 +1,7 @@
 import React , {useEffect} from 'react'
 import firebase from 'firebase'
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import {View} from 'react-native'
+import {Text} from 'react-native-elements'
 import SignInScreen from './screens/SignInScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import HomeScreen from './screens/HomeScreen'
@@ -9,20 +9,42 @@ import ChartScreen from './screens/ChartScreen'
 import AnalysisScreen from './screens/AnalysisScreen'
 import MainScreen from './screens/MainScreen'
 
-const navigator = createSwitchNavigator({
-  authScreens:createStackNavigator({
-    SignInScreen,
-    RegisterScreen
-  }),
-  mainScreens:createStackNavigator({
-    HomeScreen,
-    AnalysisScreen,
-    MainScreen,
-    ChartScreen
-  })
-})
+import {NavigationContainer} from '@react-navigation/native'
+import {createStackNavigator} from '@react-navigation/stack'
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 
-const App =  createAppContainer(navigator)
+const HomeStack = createStackNavigator();
+function HomeStackScreen(){
+  return(
+    <HomeStack.Navigator>
+      <HomeStack.Screen name="SignInScreen" component={SignInScreen}/>
+      <HomeStack.Screen name="RegisterScreen" component={RegisterScreen}/>
+      <HomeStack.Screen name="HomeScreen" component={HomeScreen}/>
+      <HomeStack.Screen name="AnalysisScreen" component={AnalysisScreen}/>
+      <HomeStack.Screen name="MainScreen" component={MainScreen}/>
+
+      <HomeStack.Screen name="ChartScreen" component={ChartScreen}/>
+    </HomeStack.Navigator>
+  )
+}
+
+function NutritionInfo() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Nutrition info Tab!</Text>
+    </View>
+  );
+}
+
+function DietPlan() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Diet plan Tab!</Text>
+    </View>
+  );
+}
+
+const Tab = createBottomTabNavigator();
 
 export default ()=>{
   
@@ -41,6 +63,12 @@ export default ()=>{
  },[])
 
   return(
-    <App/>
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeStackScreen}/>
+        <Tab.Screen name="Nutrition info" component={NutritionInfo}/>
+        <Tab.Screen name="Diet Plan" component={DietPlan}/>
+      </Tab.Navigator>
+    </NavigationContainer>
   )
 }
