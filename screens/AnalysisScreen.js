@@ -46,13 +46,8 @@ const AnalysisScreen = ({navigation}) => {
     var target_weight = target_bmi*Math.pow(height_m,2)
     var timeRequired = Math.abs(target_weight - weight)/0.5
 
-    // console.log(weight)
-    // console.log(target_weight)
-    // console.log(timeRequired)
-
     var bmr = null
     
-
     if (userData.gender == 'M'){
 
         bmr =  66 + (6.3*weight*2.205) + (12.9*height/2.54) - (6.8*userData.age)
@@ -79,8 +74,11 @@ const AnalysisScreen = ({navigation}) => {
 
         <Button style={styles.texts} title="Show Action Items" onPress={() => 
             { 
-            navigation.navigate('MainScreen')
-         } }/>
+            navigation.navigate('MainScreen', {
+                expectedCal: parseInt(Recommendation_calory)
+            })
+        }
+        }/>
           <Button style={styles.texts} title="Chart Screen" onPress={() => 
             { 
             navigation.navigate('ChartScreen')

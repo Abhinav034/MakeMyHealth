@@ -4,11 +4,14 @@ import {Text, Button} from 'react-native-elements'
 import MainScrComp from '../components/MainScrComponent'
 import {fbfetchHealthData} from '../firebase/fbCRUD'
 
-const MainScreen = ({navigation}) => {
-    
+const MainScreen = ({navigation, route}) => {
+    const expectedCalories = route.params.expectedCal;
+    // console.log(cal);
 
     return <View style={styles.container}>
+
         <MainScrComp
+            expCal = {expectedCalories}
         />
         
     </View>
