@@ -10,15 +10,7 @@ const ChartScreen = ()=>{
 
     const [ healtData, setData ] = useState()
 
-    const [ chartData, setChartData ] = useState({
-          
-      calories: 0,
-      exerciseTime : 0,
-      sleepHours : 0,
-      walkTime: 0,
-      waterGlass :0
-
-    })
+    
 
     // var s = '01:05:00'
     
@@ -28,29 +20,48 @@ const ChartScreen = ()=>{
     // console.log('min - ', time)
 
     useEffect(() => {
+
+    
       
     const user = firebase.auth().currentUser
     firebase.database().ref(`/users/${user.uid}/healthData`)
     .on('value' , snapshot =>{
+        console.log(snapshot.val())
         setData(snapshot.val())
 
-        // avg of snapshot:
-        // set after processing
 
 
     })
-
-     if(healtData){
-
-      var allData = Object.values(healtData)
-
-       var calArr =  allData.map((item)=> item.calories)
-
-     }
+    
+     
       
   },[])
 
+  var avgCal = 0;
+  var avgGlasses = 0;
+  var avgSleep = 0;
+  var avgExe = 0;
+  var avgwalk = 0;
 
+  if(healtData){
+
+    var allData = Object.values(healtData)
+
+     
+
+     const arrAvg = arr => arr.reduce((a,b) => a + b, 0) / arr.length // definition
+
+     avgCal = arrAvg(allData.map((item)=> item.calories))
+     avgGlasses = arrAvg(allData.map((item)=> item.waterGlass))
+     //avgwalk = arrAvg(allData.map((item)=> item.walkTime))
+     //avgExe = arrAvg(allData.map((item)=> item.exerciseTime))
+     avgSleep = arrAvg(allData.map((item)=> item.sleepHours))
+     
+     
+
+
+
+   }
 
 
 
@@ -87,9 +98,9 @@ const ChartScreen = ()=>{
   />
 
   <Text h3 > Your daily food intake:</Text>
-    {console.log(healtData.calories*100/2000)}
+    
   <HorizontalBarGraph
-      data={[20,30,40,healtData.calories*100/2000]}
+      data={[20,30,40,avgCal*100/2000]}
       labels={['Protein(g)', 'Fat(g)', 'Carbs.(g)','Cal.(Kcal)']}
       width={Dimensions.get('window').width-10}
       height={350}

@@ -69,15 +69,6 @@ const HomeScreen = ({navigation})=>{
 
         analyseButtonPressed={analyseButtonPressed}
         />
-        
-        {console.log(gender),
-        console.log(feet),
-        console.log(inch),
-        console.log(weight),
-        console.log(age),
-        console.log(lifestyle)
-
-        }
    </View>
     </View>
     </ImageBackground>
