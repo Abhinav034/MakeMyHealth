@@ -1,7 +1,5 @@
 import React , {useEffect} from 'react'
 import firebase from 'firebase'
-import {View} from 'react-native'
-import {Text} from 'react-native-elements'
 import SignInScreen from './screens/SignInScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import HomeScreen from './screens/HomeScreen'
@@ -13,7 +11,6 @@ import WebScreen from './screens/WebView'
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
-import { Header } from 'react-native/Libraries/NewAppScreen'
 import BuyProductsScreen from './screens/BuyProducts'
 const AuthStack = createStackNavigator();
  

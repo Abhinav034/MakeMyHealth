@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, {useState,useEffect} from 'react'
 import {View, StyleSheet, TouchableHighlight} from 'react-native'
 import {Text, Button} from 'react-native-elements'
 import Dialog from 'react-native-dialog'
 import {Stopwatch} from 'react-native-stopwatch-timer'
-
+import {fbInsertHealthData} from '../firebase/fbCRUD'
 
 const MainScrComp = (props) =>{
+
     const [visible, setVisibility] = useState(false);
     const [dbVal, dbChangedVal] = useState('');
     const [dbMessage, dbChangedMsg] = useState('');
@@ -14,12 +15,14 @@ const MainScrComp = (props) =>{
     const [waterGlass, changedGlasses] = useState(0);
     const [sleepHours, changedSleepHours] = useState(0);
 
-    const [isStopwatchStart, setIsStopwatchStart] = useState(false);
-    const [resetStopwatch, setResetStopwatch] = useState(false);
+    const [isWalkStart, setIsWalkStart] = useState(false);
+    const [resetWalk, setResetWalk] = useState(false);
+    const [isExerciseStart, setIsExerciseStart] = useState(false);
+    const [resetExercise, setResetExercise] = useState(false);
 
     // let calories = 0, waterGlass = 0, sleepHours = 0;
     let dialogBoxName = '';
-    let walkTime;
+    let walkTime, exerciseTime;
 
     const showDialogBox = (value) =>{
         setVisibility(true);
@@ -76,26 +79,24 @@ const MainScrComp = (props) =>{
             <View style={styles.horizontal}>
                 <Text style={styles.title}>Daily walking/running: </Text>
                 {/* <Text style={styles.val}>{props.walking}</Text> */}
-                <Stopwatch style={styles.val} laps start={isStopwatchStart} reset={resetStopwatch} options={options} getTime={(time) => {
+                <Stopwatch style={styles.val} laps start={isWalkStart} reset={resetWalk} options={options} getTime={(time) => {
                     walkTime = time
                 }}/>
                 <Text>app. 30 min</Text>
-                {/* <Button style={styles.btn} title='Log' onPress = {()=> {setIsStopwatchStart(!isStopwatchStart);
-              setResetStopwatch(false);
-              }}/> */}
-              </View>
+                
+            </View>
             <View style={styles.horizontal}>
-                <Button title={!isStopwatchStart ? 'START' : 'STOP'} onPress={() => {
-                    if(isStopwatchStart){
+                <Button style={styles.start} title={!isWalkStart ? 'START' : 'STOP'} onPress={() => {
+                    if(isWalkStart){
                         console.log(walkTime);
                     }
-                setIsStopwatchStart(!isStopwatchStart);
-                setResetStopwatch(false);
+                    setIsWalkStart(!isWalkStart);
+                    setResetWalk(false);
                 }}/>
                 
-                <Button title="RESET" onPress={() => {
-                    setIsStopwatchStart(false);
-                    setResetStopwatch(true);
+                <Button style={styles.start} title="RESET" onPress={() => {
+                    setIsWalkStart(false);
+                    setResetWalk(true);
                 }}/>
                 
             </View>
@@ -106,11 +107,30 @@ const MainScrComp = (props) =>{
             </View>
             <View style={styles.horizontal}>
                 <Text style={styles.title}>Daily exercise: </Text>
-                <Text style={styles.val}>{props.exercise}</Text>
-                <Button style={styles.btn} title='Log' onPress = {()=> showDialogBox("exercise")}/>
+                <Stopwatch style={styles.val} laps start={isExerciseStart} reset={resetExercise} options={options} getTime={(time) => {
+                    exerciseTime = time
+                }}/>
+                <Text>{props.exercise}</Text>
+            </View>
+            <View style={styles.horizontal}>
+                <Button style={styles.start} title={!isExerciseStart ? 'START' : 'STOP'} onPress={() => {
+                    if(isExerciseStart){
+                        console.log(exerciseTime);
+                    }
+                    setIsExerciseStart(!isExerciseStart);
+                    setResetExercise(false);
+                }}/>
+                
+                <Button style={styles.start} title="RESET" onPress={() => {
+                    setIsExerciseStart(false);
+                    setResetExercise(true);
+                }}/>
+                
             </View>
 
-            <Button title="Button" value="btn1" onPress = {props.btnDialog}/>
+            <Button title="Button" value="btn1" onPress = {() => {
+                fbInsertHealthData({calories, waterGlass, walkTime, sleepHours, exerciseTime})
+            }}/>
 
             <Dialog.Container visible={visible}>
                 <Dialog.Title>Enter value</Dialog.Title>
@@ -147,6 +167,15 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginTop: 10,
       },
+    stopwatch: {
+        flexDirection: 'row',
+    },
+    start: {
+        paddingHorizontal: 10,
+    },
+    reset:{
+        flex: 1,
+    }
     
 });
 

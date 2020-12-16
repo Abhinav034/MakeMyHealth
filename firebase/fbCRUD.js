@@ -26,9 +26,6 @@ const fbFetchUserName = async ()=>{
     return value
 }
 
-
-
-
 const fbInsertUserData = async(data)=>{
     
     const user = firebase.auth().currentUser
@@ -49,10 +46,16 @@ const fbFetch = ()=>{
     return obj
 }
 
+const fbInsertHealthData = async(data) =>{
+    const user = firebase.auth().currentUser
+    await firebase.database().ref(`/users/${user.uid}/healthData`)
+    .set(data)
+}
 
 export  {
     fbInsertUserName,
     fbInsertUserData,
     fbFetchUserName,
-    fbFetch
+    fbFetch,
+    fbInsertHealthData,
 }
