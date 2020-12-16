@@ -1,5 +1,7 @@
 import firebase from 'firebase'
 
+const date = (new Date().getDate()) + "-" + (new Date().getMonth() + 1)
+
 const fbInsertUserName = async (name)=>{
    try {
     const user = firebase.auth().currentUser
@@ -41,15 +43,30 @@ const fbFetch = ()=>{
     .on('value' , snapshot =>{
         obj = snapshot.val()
     })
-    console.log('fetch')
-    console.log(obj.age)
+    
+    // console.log('health data', obj)
     return obj
 }
 
+
+
 const fbInsertHealthData = async(data) =>{
     const user = firebase.auth().currentUser
-    await firebase.database().ref(`/users/${user.uid}/healthData`)
+    await firebase.database().ref(`/users/${user.uid}/healthData/`).child(date)
     .set(data)
+} 
+
+const fbfetchHealthData = () => {
+    var obj = null;
+    const user = firebase.auth().currentUser;
+    firebase.database().ref(`/users/${user.uid}/healthData/${date}`)
+    .on('value', async snapshot => {
+        obj = await snapshot.val()
+        
+    })
+    console.log('.......', obj)
+    return obj
+
 }
 
 export  {
@@ -58,4 +75,6 @@ export  {
     fbFetchUserName,
     fbFetch,
     fbInsertHealthData,
+    fbfetchHealthData,
+
 }
