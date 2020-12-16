@@ -137,7 +137,7 @@ const MainScrComp = (props) =>{
             <View style={styles.horizontal}>
                 <Text style={styles.title}>Daily calorie intake: </Text>
                 
-                <Text style={styles.val}>{calories}/2000</Text>
+                <Text style={styles.val}>{calories}/{props.expCal}</Text>
                 <Button style={styles.btn} title='Log' onPress = {()=> showDialogBox("cal")}/>
             </View>
             <View style={styles.horizontal}>
@@ -197,7 +197,7 @@ const MainScrComp = (props) =>{
                 
             </View>
 
-            <Button title="Button" value="btn1" onPress = {() => {
+            <Button style={styles.btnSave} title="Save" value="btn1" onPress = {() => {
                 fbInsertHealthData({calories, waterGlass, walk, sleepHours, exercise})
             }}/>
 
@@ -244,6 +244,9 @@ const styles = StyleSheet.create({
     },
     reset:{
         flex: 1,
+    },
+    btnSave: {
+        margin: 20
     }
     
 });
