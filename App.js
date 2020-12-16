@@ -1,7 +1,5 @@
 import React , {useEffect} from 'react'
 import firebase from 'firebase'
-import {View} from 'react-native'
-import {Text} from 'react-native-elements'
 import SignInScreen from './screens/SignInScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import HomeScreen from './screens/HomeScreen'
@@ -9,11 +7,11 @@ import ChartScreen from './screens/ChartScreen'
 import AnalysisScreen from './screens/AnalysisScreen'
 import MainScreen from './screens/MainScreen'
 import NutritionScreen from './screens/NutritionInfo'
-
+import WebScreen from './screens/WebView'
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
-import { Header } from 'react-native/Libraries/NewAppScreen'
+import BuyProductsScreen from './screens/BuyProducts'
 const AuthStack = createStackNavigator();
  
 const HomeStack = createStackNavigator();
@@ -42,9 +40,14 @@ function NutritionInfo() {
 
 function DietPlan() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Diet plan Tab!</Text>
-    </View>
+    <HomeStack.Navigator>
+    <HomeStack.Screen name="BuyProductScreen" component={BuyProductsScreen} options={{
+        headerLeft:null,
+        title:'Buy Products'
+        
+}}/>
+   <HomeStack.Screen name="WebView" component={WebScreen}/>
+  </HomeStack.Navigator>
   );
 }
 
@@ -55,7 +58,7 @@ function tabScreens() {
     return  <Tab.Navigator>
         <Tab.Screen name="Home" component={HomeStackScreen}/>
         <Tab.Screen name="Nutrition info" component={NutritionInfo}/>
-        <Tab.Screen name="Diet Plan" component={DietPlan}/>
+        <Tab.Screen name="Buy items" component={DietPlan}/>
       </Tab.Navigator>
 }
 
