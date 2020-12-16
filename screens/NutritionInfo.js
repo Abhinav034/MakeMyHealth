@@ -24,12 +24,15 @@ const NutritionScreen = ()=>{
            
             //fetchData(search_kw)
 
-        },[])
+        },[]) 
 
+         
         const fetchData = async (search_kw_p)=>{
             try {
-                search_kw_p = search_kw_p.replaceAll(' ', '%20')
-                var url = `https://api.edamam.com/api/nutrition-data?app_id=651febce&app_key=f04e2edaad63025bfce70088ca6b792c&ingr=${search_kw_p}`
+                console.log(search_kw_p)
+                var search = search_kw_p.split(' ').join('%20')
+                console.log(search)
+                var url = `https://api.edamam.com/api/nutrition-data?app_id=651febce&app_key=f04e2edaad63025bfce70088ca6b792c&ingr=${search}`
                 console.log('url -' ,url)
                 const res = await fetch(url)
                 const data_from_api = await res.json()
@@ -45,10 +48,6 @@ const NutritionScreen = ()=>{
                     final_data += `${v[i].label} : ${parseFloat(v[i].quantity).toFixed(2)} ${v[i].unit}\n`
 
                 }
-
-                
-
-
 
                 setData(final_data)
 

@@ -1,12 +1,13 @@
+import firebase from 'firebase'
 import React, {useState,useEffect} from 'react'
 import {View, StyleSheet, TouchableHighlight} from 'react-native'
 import {Text, Button} from 'react-native-elements'
 import Dialog from 'react-native-dialog'
-import {Stopwatch} from 'react-native-stopwatch-timer'
-import {fbInsertHealthData} from '../firebase/fbCRUD'
+//import {Stopwatch} from 'react-native-stopwatch-timer'
+import {fbInsertHealthData, fbfetchHealthData} from '../firebase/fbCRUD'
 
 const MainScrComp = (props) =>{
-
+   
     const [visible, setVisibility] = useState(false);
     const [dbVal, dbChangedVal] = useState('');
     const [dbMessage, dbChangedMsg] = useState('');
@@ -23,6 +24,17 @@ const MainScrComp = (props) =>{
     // let calories = 0, waterGlass = 0, sleepHours = 0;
     let dialogBoxName = '';
     let walkTime, exerciseTime;
+
+    useEffect(() => {
+        // fbfetchHealthData()
+        var obj = null;
+        const user = firebase.auth().currentUser;
+        firebase.database().ref(`/users/${user.uid}/healthData`)
+        .on('value', async snapshot => {   
+            changedCalories(snapshot.val().calories)
+        })
+       
+    },[])
 
     const showDialogBox = (value) =>{
         setVisibility(true);
@@ -49,7 +61,7 @@ const MainScrComp = (props) =>{
         var newVal = null;
         switch(category){
             case "cal":
-                newVal = parseInt(dbVal) + parseInt(calories) 
+                newVal = parseInt(dbVal) + parseInt(calories)
                 changedCalories(newVal);
             break;
             case "water":
@@ -64,10 +76,15 @@ const MainScrComp = (props) =>{
         setVisibility(false);
     }
 
+   
     return(
+        
         <View>
+
+            {console.log("qqq2222: ",  userData)}
             <View style={styles.horizontal}>
                 <Text style={styles.title}>Daily calorie intake: </Text>
+                
                 <Text style={styles.val}>{calories}/2000</Text>
                 <Button style={styles.btn} title='Log' onPress = {()=> showDialogBox("cal")}/>
             </View>
@@ -79,9 +96,9 @@ const MainScrComp = (props) =>{
             <View style={styles.horizontal}>
                 <Text style={styles.title}>Daily walking/running: </Text>
                 {/* <Text style={styles.val}>{props.walking}</Text> */}
-                <Stopwatch style={styles.val} laps start={isWalkStart} reset={resetWalk} options={options} getTime={(time) => {
+                {/* <Stopwatch style={styles.val} laps start={isWalkStart} reset={resetWalk} options={options} getTime={(time) => {
                     walkTime = time
-                }}/>
+                }}/> */}
                 <Text>app. 30 min</Text>
                 
             </View>
@@ -107,9 +124,9 @@ const MainScrComp = (props) =>{
             </View>
             <View style={styles.horizontal}>
                 <Text style={styles.title}>Daily exercise: </Text>
-                <Stopwatch style={styles.val} laps start={isExerciseStart} reset={resetExercise} options={options} getTime={(time) => {
+                {/* <Stopwatch style={styles.val} laps start={isExerciseStart} reset={resetExercise} options={options} getTime={(time) => {
                     exerciseTime = time
-                }}/>
+                }}/> */}
                 <Text>{props.exercise}</Text>
             </View>
             <View style={styles.horizontal}>
@@ -129,7 +146,8 @@ const MainScrComp = (props) =>{
             </View>
 
             <Button title="Button" value="btn1" onPress = {() => {
-                fbInsertHealthData({calories, waterGlass, walkTime, sleepHours, exerciseTime})
+                // fbInsertHealthData({calories, waterGlass, walkTime, sleepHours, exerciseTime})
+                fbInsertHealthData({calories, waterGlass})
             }}/>
 
             <Dialog.Container visible={visible}>

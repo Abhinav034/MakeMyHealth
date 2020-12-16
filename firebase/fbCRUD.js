@@ -41,15 +41,30 @@ const fbFetch = ()=>{
     .on('value' , snapshot =>{
         obj = snapshot.val()
     })
-    console.log('fetch')
-    console.log(obj.age)
+    
+    // console.log('health data', obj)
     return obj
 }
+
+
 
 const fbInsertHealthData = async(data) =>{
     const user = firebase.auth().currentUser
     await firebase.database().ref(`/users/${user.uid}/healthData`)
     .set(data)
+}
+
+const fbfetchHealthData = () => {
+    var obj = null;
+    const user = firebase.auth().currentUser;
+    firebase.database().ref(`/users/${user.uid}/healthData`)
+    .on('value', async snapshot => {
+        obj = await snapshot.val()
+        
+    })
+    console.log(obj)
+    return obj
+
 }
 
 export  {
@@ -58,4 +73,6 @@ export  {
     fbFetchUserName,
     fbFetch,
     fbInsertHealthData,
+    fbfetchHealthData,
+
 }
