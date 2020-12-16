@@ -9,7 +9,6 @@ const MainScreen = ({navigation}) => {
 
     return <View style={styles.container}>
         <MainScrComp
-        
         />
         
     </View>
