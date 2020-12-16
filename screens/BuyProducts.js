@@ -42,6 +42,7 @@ const BuyProductsScreen = ({navigation})=>{
     }
 
     return <View style={{flex:1}}>
+        {console.log('rendering___')}
             <ActivityIndicator animating={indicatorState} size={'large'|| 50} color={'black'} style={{  position: 'absolute',
     left: 0,
     right: 0,

@@ -11,7 +11,7 @@ const HomeScreen = ({navigation})=>{
   const [inch , setInch] = useState(7)
   const [weight , setWeight] = useState(70)
   const [age    , setAge]    = useState(25)
-  const [lifestyle , setLifestyle] = useState('')
+  const [lifestyle , setLifestyle] = useState(1.375)
 
   const analyseButtonPressed = async()=>{
 

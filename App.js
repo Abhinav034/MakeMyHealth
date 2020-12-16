@@ -32,7 +32,8 @@ function NutritionInfo() {
   return (
       <HomeStack.Navigator>
           <HomeStack.Screen name="NutritionScreen" component={NutritionScreen} options={{
-        headerShown:false,
+        headerLeft:null,
+        title:"Nutrition Info."
       }}/>
         </HomeStack.Navigator>
   )

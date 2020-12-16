@@ -123,9 +123,9 @@ const HomeComp = (props)=>{
 
             ]}
             
-            placeholder='Your Lifestyle'
+            placeholder='lightly active (light exercise/sports 1-3 days/week)'
             labelStyle={{color:'white'}}
-            defaultValue={null}
+            defaultValue={props.lifestyle}
             containerStyle={{height: 40}}
             style={{backgroundColor: 'transparent'}}
 

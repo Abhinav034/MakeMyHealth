@@ -1,17 +1,64 @@
-import React from 'react'
+import React, { useState ,useEffect} from 'react'
 import {View , Dimensions, StyleSheet} from 'react-native'
 import {Text} from 'react-native-elements'
 import {LineChart , BarChart} from 'react-native-chart-kit'
 import HorizontalBarGraph from '@chartiful/react-native-horizontal-bar-graph';
+import firebase from 'firebase'
 
 
 const ChartScreen = ()=>{
 
+    const [ healtData, setData ] = useState()
+
+    const [ chartData, setChartData ] = useState({
+          
+      calories: 0,
+      exerciseTime : 0,
+      sleepHours : 0,
+      walkTime: 0,
+      waterGlass :0
+
+    })
+
+    // var s = '01:05:00'
+    
+    // var a = s.split(':')
+    // var time = parseInt(a[0])*60 + parseInt(a[1])
+
+    // console.log('min - ', time)
+
+    useEffect(() => {
+      
+    const user = firebase.auth().currentUser
+    firebase.database().ref(`/users/${user.uid}/healthData`)
+    .on('value' , snapshot =>{
+        setData(snapshot.val())
+
+        // avg of snapshot:
+        // set after processing
+
+
+    })
+
+     if(healtData){
+
+      var allData = Object.values(healtData)
+
+       var calArr =  allData.map((item)=> item.calories)
+
+     }
+      
+  },[])
+
+
+
+
+
     const linedata = {
-        labels: ['Mon', 'Tue', 'Wed','Thu', 'Fri', 'Sat'],
+        labels: ['15 dec', '16 dec', 'Wed','Thu', 'Fri', 'Sat'],
         datasets: [
           {
-            data: [0, 30, 20 , 80, 100],
+            data: [75, 70, 20 , 80, 100],
             strokeWidth: 2
           }
         ]
@@ -40,9 +87,9 @@ const ChartScreen = ()=>{
   />
 
   <Text h3 > Your daily food intake:</Text>
-
+    {console.log(healtData.calories*100/2000)}
   <HorizontalBarGraph
-      data={[20,30,40,100]}
+      data={[20,30,40,healtData.calories*100/2000]}
       labels={['Protein(g)', 'Fat(g)', 'Carbs.(g)','Cal.(Kcal)']}
       width={Dimensions.get('window').width-10}
       height={350}
@@ -89,3 +136,27 @@ const styles = StyleSheet.create({
 })
 
 export default ChartScreen
+
+
+
+// healthData: 
+
+// dec10 : {cal : , water : 91200, water : 9, weight : 75}
+// dec16 : {cal : 1200, water : 9, weight : -1}
+// dec17 : {cal : 1500, weight : 70}
+
+
+// cal = 1200 + 1500 /2
+
+
+// 75
+
+
+
+// 70
+// ----------date
+
+
+
+
+
