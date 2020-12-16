@@ -1,4 +1,4 @@
-import React , {useState,useEffect} from 'react'
+import React , {useState, useEffect} from 'react'
 import {View, StyleSheet} from 'react-native'
 import {Text, Button} from 'react-native-elements'
 import { set } from 'react-native-reanimated';
@@ -9,27 +9,19 @@ import {fbFetch} from '../firebase/fbCRUD'
 const AnalysisScreen = ({navigation}) => {
 
     const [userData , setData] = useState({})
-   
 
-     useEffect(() => {
+    useEffect(() => {
         var userData = fbFetch();
         setData(userData)
     },[])
 
-
-
-    console.log("we are using following data")
-    console.log(userData)
+    // console.log("we are using following data")
+    // console.log(userData)
 
     var height = ((12*userData.feet) + (userData.inch))*2.54 //cm
     var height_m = height/100
-    console.log(`height in meters: ${height_m}`)
-
     var weight = userData.weight // kg
-    
     var target_bmi = null
-   
-
     var bmi = weight/Math.pow(height_m,2)
     var category = null;
 
@@ -54,9 +46,9 @@ const AnalysisScreen = ({navigation}) => {
     var target_weight = target_bmi*Math.pow(height_m,2)
     var timeRequired = Math.abs(target_weight - weight)/0.5
 
-    console.log(weight)
-    console.log(target_weight)
-    console.log(timeRequired)
+    // console.log(weight)
+    // console.log(target_weight)
+    // console.log(timeRequired)
 
     var bmr = null
     

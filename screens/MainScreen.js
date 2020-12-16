@@ -1,12 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {View, StyleSheet} from 'react-native'
 import {Text, Button} from 'react-native-elements'
 import MainScrComp from '../components/MainScrComponent'
 
-
-
 const MainScreen = ({navigation}) => {
-    
 
     return <View style={styles.container}>
         <MainScrComp
