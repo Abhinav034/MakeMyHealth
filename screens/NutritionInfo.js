@@ -1,5 +1,5 @@
 import React,{useEffect , useState} from 'react'
-import {View, StyleSheet, ActivityIndicator} from 'react-native'
+import {View, StyleSheet, ActivityIndicator, ImageBackground} from 'react-native'
 import {Input, Text} from 'react-native-elements'
 
 
@@ -17,8 +17,6 @@ const NutritionScreen = ()=>{
 
          
         const fetchData = async (search_kw_p)=>{
-
-            console.log('aaaaaa ---', search_kw_p)
             try {
 
                 search_kw_p = search_kw_p.split(' ').join('%20')
@@ -54,10 +52,15 @@ const NutritionScreen = ()=>{
 
 
 
-    return <View>
-        {console.log('render')}
+    return <ImageBackground source={require('../images/test.jpg')} style={{
+        width: '100%',
+        height: '100%',
+        flex: 1 
+  }}>
+    <View>
+       
         
-        <ActivityIndicator animating={spinner} size={'large'|| 50} color={'black'} style={{  position: 'absolute',
+        <ActivityIndicator animating={spinner} size={'large'|| 50} color={'white'} style={{  position: 'absolute',
     left: 0,
     right: 0,
     top: 0,
@@ -69,34 +72,43 @@ const NutritionScreen = ()=>{
 
 
     
-       <View >
-       <Input  style={styles.data} placeholder='Enter Food' 
+       
+       <Input  style={styles.data} placeholder='Enter Food' inputContainerStyle={{borderBottomWidth:0}}
+       placeholderTextColor='#919191'
        value={search_kw}
        onChangeText = {changeText=>setSearch(changeText) }
        onEndEditing={()=> fetchData(search_kw) }></Input>
-       </View>
+       
         
         
        
-        <View >
-        <Text h4 style={{textAlign:'center'}}>{data}</Text>
-        </View>
+        
+        <Text h4 style={styles.text}>{data}</Text>
+        
     </View>
+    </ImageBackground>
 }
 
 
 const styles = StyleSheet.create({
     
     data: {
-        
+        borderWidth:0,
         width: 50 ,
-        borderColor:'grey',
-        borderWidth: 1,
-        padding:2
-
+        backgroundColor:'#333333',
+        borderRadius:10,
+        marginTop:10,
+        color:'white',
+        paddingHorizontal:5,
+        
         
     },
-    
+    text:{
+        textAlign:'center',
+        color:'white',
+        marginTop:20
+
+    }
 });
 
 export default NutritionScreen

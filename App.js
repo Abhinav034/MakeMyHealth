@@ -12,6 +12,10 @@ import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import BuyProductsScreen from './screens/BuyProducts'
+import { Entypo } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons'; 
+import { FontAwesome5 } from '@expo/vector-icons'; 
+
 const AuthStack = createStackNavigator();
  
 const HomeStack = createStackNavigator();
@@ -33,7 +37,13 @@ function NutritionInfo() {
       <HomeStack.Navigator>
           <HomeStack.Screen name="NutritionScreen" component={NutritionScreen} options={{
         headerLeft:null,
-        title:"Nutrition Info."
+        title:"Nutrition Info.",
+        headerTitleStyle:{
+          color:'white'
+        },
+        headerStyle:{
+          backgroundColor:'#333333'
+        }
       }}/>
         </HomeStack.Navigator>
   )
@@ -44,7 +54,14 @@ function DietPlan() {
     <HomeStack.Navigator>
     <HomeStack.Screen name="BuyProductScreen" component={BuyProductsScreen} options={{
         headerLeft:null,
-        title:'Buy Products'
+        title:'Buy Products',
+        headerTitleStyle:{
+          color:'white'
+        },
+        headerStyle:{
+          backgroundColor:'#333333'
+        }
+        
         
 }}/>
    <HomeStack.Screen name="WebView" component={WebScreen}/>
@@ -56,10 +73,49 @@ function DietPlan() {
 const Tab = createBottomTabNavigator();
 
 function tabScreens() {
-    return  <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeStackScreen}/>
-        <Tab.Screen name="Nutrition info" component={NutritionInfo}/>
-        <Tab.Screen name="Buy items" component={DietPlan}/>
+    return  <Tab.Navigator
+    tabBarOptions={{
+      activeTintColor: 'orange',
+      inactiveTintColor: 'white',
+      activeBackgroundColor: '#1c1c1c',
+      inactiveBackgroundColor: '#333333',
+         style:{
+          backgroundColor: '#CE4418',
+          paddingBottom:0,
+          height:65
+         },
+         labelStyle:{
+           fontSize:12,
+           marginTop:0
+         }
+   }}
+    >
+        <Tab.Screen options={{
+        tabBarLabel: 'Home',
+        tabBarIcon: ({color}) => (
+          <Entypo name="home" size={27} color={color} />
+        ),
+      }} name="Home" component={HomeStackScreen}/>
+        <Tab.Screen options={{
+        tabBarLabel: 'Nutrition',
+        tabBarIcon: ({color}) => (
+          <Ionicons name="md-nutrition" size={27} color={color} />
+        ),
+      }} name="Nutrition info" component={NutritionInfo}/>
+        <Tab.Screen options={{
+        tabBarLabel: 'Buy',
+        tabBarIcon: ({color}) => (
+          <FontAwesome5 name="search-dollar" size={27} color={color} />
+        )
+      }} tabBarOptions={{
+
+        labelStyle: {
+          fontSize: 10,
+          margin: 0,
+          padding: 0,
+        }
+        
+      }} name="Buy items" component={DietPlan}/>
       </Tab.Navigator>
 }
 

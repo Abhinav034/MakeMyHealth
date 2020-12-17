@@ -8,7 +8,9 @@ const MainScreen = ({navigation, route}) => {
     const expectedCalories = route.params.expectedCal;
     // console.log(cal);
     const navPressed = ()=>{
-        navigation.navigate('ChartScreen')
+        navigation.navigate('ChartScreen' , {
+            cal:expectedCalories
+        })
     }
     return <View style={styles.container}>
 

@@ -41,9 +41,9 @@ const BuyProductsScreen = ({navigation})=>{
     
     }
 
-    return <View style={{flex:1}}>
+    return <View style={{flex:1 , backgroundColor:'#333333'}}>
         {console.log('rendering___')}
-            <ActivityIndicator animating={indicatorState} size={'large'|| 50} color={'black'} style={{  position: 'absolute',
+            <ActivityIndicator animating={indicatorState} size={'large'|| 50} color={'white'} style={{  position: 'absolute',
     left: 0,
     right: 0,
     top: 0,
@@ -55,7 +55,7 @@ const BuyProductsScreen = ({navigation})=>{
             keyExtractor={(item)=>`${item.key}`}
             renderItem = {({item})=>{
                 return <TouchableOpacity onPress={()=> navigation.navigate('WebView' , {link:item.link})}>
-                     <View style={{borderWidth:1 , borderColor:'#858585', padding:10 , marginVertical:8}}>
+                     <View style={{borderWidth:1 , borderColor:'#858585', padding:10 , marginVertical:8 , backgroundColor:'#d6d6d6'}}>
                 <View style={{flexDirection:'row', paddingRight:10}}>
                  <Image style={{width: 130,height: 130}} source={{uri:item.image}}></Image>
                 <View>

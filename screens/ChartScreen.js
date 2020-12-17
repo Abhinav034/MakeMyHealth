@@ -144,7 +144,7 @@ const ChartScreen = ({route})=>{
   <HorizontalBarGraph
   
       //data={[avgCal.toFixed(2)*100/2000 , avgSleep.toFixed(2)*100/8, 20]}
-      data={[avgCal*100/2000, avgSleep*100/8, avgGlasses*10, (avgwalk/60).toFixed(2)*100/30, (avgExe/60).toFixed(2)*100/30 ]}
+      data={[avgCal*100/route.params.cal, avgSleep*100/8, avgGlasses*10, (avgwalk/60).toFixed(2)*100/30, (avgExe/60).toFixed(2)*100/30 ]}
       
       labels={['Calories' , 'Sleep', 'Water', 'walking', 'exercise']}
       width={Dimensions.get('window').width-10}
@@ -193,24 +193,6 @@ const styles = StyleSheet.create({
 
 export default ChartScreen
 
-
-
-// healthData: 
-
-// dec10 : {cal : , water : 91200, water : 9, weight : 75}
-// dec16 : {cal : 1200, water : 9, weight : -1}
-// dec17 : {cal : 1500, weight : 70}
-
-
-// cal = 1200 + 1500 /2
-
-
-// 75
-
-
-
-// 70
-// ----------date
 
 
 

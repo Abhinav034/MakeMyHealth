@@ -11,7 +11,6 @@ const HomeComp = (props)=>{
       <View style={{marginVertical: 10 , justifyContent:'center'}}> 
       <Text h4 style={{marginBottom: 15 , color:"white" }}>Gender</Text>
       <ButtonGroup selectedButtonStyle={{backgroundColor:'#991c1c'}}
-
           onPress={index => {
             setIndex(index)
             switch(index){
@@ -141,7 +140,9 @@ const HomeComp = (props)=>{
       
 
 
-    <Button buttonStyle={{backgroundColor:'red'}} title="Analyse" onPress={props.analyseButtonPressed} />
+ 
+   <Button type="outline" titleStyle={{color:'white'}} buttonStyle={{ borderColor:'red',borderWidth:0.5, width:Dimensions.get('window').width-40}} title="Analyse" onPress={props.analyseButtonPressed} />
+   
   
     </View>
 }
@@ -149,9 +150,6 @@ const HomeComp = (props)=>{
 const styles = StyleSheet.create({
   textStyles:{
     marginBottom: 10,
-  },
-  buttonStyle:{
-    
   }
 })
 
