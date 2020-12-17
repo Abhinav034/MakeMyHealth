@@ -48,12 +48,29 @@ const ChartScreen = ({route})=>{
   var avgwalk = 0;
 
   var dates = ['1-12', '2-12']
-  var weights = [, 70]
+  var weights = [80, 70]
   if(healthData){
 
+    
+
     var allData = Object.values(healthData)
-    dates = healthData.filter((item => Object.values(item)[0].weight !== -1 )).map((i) => Object.keys(i)[0])
-    weights = healthData.filter((item => Object.values(item)[0].weight !== -1 )).map((i) => Object.values(i)[0].weight)
+
+    var healthDataArr = [healthData]
+
+    console.log('healthdata',healthDataArr)
+
+    dates = []
+    weights = []
+    Object.entries(healthData).forEach( ([key, value]) => {
+     if (value.weight !== -1){
+      dates.push(key)
+      weights.push(value.weight)
+     }
+      
+    })
+
+    // dates = healthDataArr.filter((item => Object.values(item)[0].weight !== -1 )).map((i) => Object.keys(i)[0])
+    // weights = healthDataArr.filter((item => Object.values(item)[0].weight !== -1 )).map((i) => Object.values(i)[0].weight)
 
     // item : === {12-1 : {weight :-1. abs : 2} }
 
@@ -101,7 +118,7 @@ const ChartScreen = ({route})=>{
     data={linedata}
     width={Dimensions.get('window').width} 
     height={250}
-    yAxisLabel={'%'}
+    yAxisLabel={"Kg."}
     chartConfig={{
       backgroundColor: '#e26a00',
       backgroundGradientFrom: '#ffc654',
@@ -121,6 +138,7 @@ const ChartScreen = ({route})=>{
   <Text h3 > Your daily food intake:</Text>
   {console.log('avgcal - ', avgCal, 'sleep- ', avgSleep, 'water-', avgGlasses, avgwalk, avgExe)}
   {console.log('weight- ', weights, 'dates- ', dates)}
+
   {console.log([avgCal*100/2000, avgSleep*100/8, avgGlasses*10, (avgwalk/60).toFixed(2)*100/30, (avgExe/60).toFixed(2)*100/30 ])}
 
   <HorizontalBarGraph
