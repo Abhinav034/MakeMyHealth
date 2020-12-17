@@ -4,7 +4,7 @@ import {View, StyleSheet, TouchableHighlight} from 'react-native'
 import {Text, Button, Input} from 'react-native-elements'
 import Dialog from 'react-native-dialog'
 import {Stopwatch} from 'react-native-stopwatch-timer'
-import {fbInsertHealthData, fbFetch} from '../firebase/fbCRUD'
+import {fbInsertHealthData} from '../firebase/fbCRUD'
 
 function addTimes (startTime, endTime) {
     var times = [ 0, 0, 0 ]
@@ -45,8 +45,6 @@ function addTimes (startTime, endTime) {
   
 const MainScrComp = (props) =>{
 
-    const [weight , setWeight] = useState(-1);
-
     const date = (new Date().getDate()) + "-" + (new Date().getMonth() + 1)
    
     const [visible, setVisibility] = useState(false);
@@ -58,6 +56,7 @@ const MainScrComp = (props) =>{
     const [sleepHours, changedSleepHours] = useState(0);
     const [walkTime, changedWalkTime] = useState('----');
     const [exerciseTime, changedExerciseTime] = useState('----');
+    const [weight , setWeight] = useState(-1);
 
     const [isWalkStart, setIsWalkStart] = useState(false);
     const [resetWalk, setResetWalk] = useState(false);
@@ -81,6 +80,7 @@ const MainScrComp = (props) =>{
             changedSleepHours(snapshot.val().sleepHours)
             changedWalkTime(snapshot.val().walk)
             changedExerciseTime(snapshot.val().exercise)
+            setWeight(snapshot.val().weight)
         })
        
     },[])
@@ -209,6 +209,7 @@ const MainScrComp = (props) =>{
             </View>
 
             <Button style={styles.btnSave} title="Save" value="btn1" onPress = {() => {
+                (weight>0) ? weight : -1;
                 console.log("weighing here..", weight);
                 fbInsertHealthData({calories, waterGlass, walk, sleepHours, exercise, weight})
             }}/>
