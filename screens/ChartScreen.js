@@ -10,7 +10,8 @@ const ChartScreen = ({route})=>{
 
 
 
-    const [ healtData, setData ] = useState()
+    const [ healthData, setData ] = useState()
+    
 
     
 
@@ -34,29 +35,47 @@ const ChartScreen = ({route})=>{
 
 
     })
+
     
      
       
   },[])
 
-  var avgCal = 0;
-  var avgGlasses = 0;
-  var avgSleep = 0;
+  var avgCal = 1;
+  var avgGlasses = 1;
+  var avgSleep = 1;
   var avgExe = 0;
   var avgwalk = 0;
 
-  if(healtData){
+  var dates = ['1-12', '2-12']
+  var weights = [, 70]
+  if(healthData){
 
-    var allData = Object.values(healtData)
+    var allData = Object.values(healthData)
+    dates = healthData.filter((item => Object.values(item)[0].weight !== -1 )).map((i) => Object.keys(i)[0])
+    weights = healthData.filter((item => Object.values(item)[0].weight !== -1 )).map((i) => Object.values(i)[0].weight)
 
-     
+    // item : === {12-1 : {weight :-1. abs : 2} }
 
      const arrAvg = arr => arr.reduce((a,b) => a + b, 0) / arr.length // definition
 
      avgCal = arrAvg(allData.map((item)=> item.calories))
      avgGlasses = arrAvg(allData.map((item)=> item.waterGlass))
-     //avgwalk = arrAvg(allData.map((item)=> item.walkTime))
-     //avgExe = arrAvg(allData.map((item)=> item.exerciseTime))
+     avgwalk = arrAvg(allData.map((item)=> {
+       var a = item.walk.split(':')
+       
+        var time = parseInt(a[0])*60*60 + parseInt(a[1])*60 + parseInt(a[2])
+       return time
+
+      }))
+
+      avgExe = arrAvg(allData.map((item)=> {
+        var a = item.exercise.split(':')
+        var time = parseInt(a[0])*60*60 + parseInt(a[1])*60 + parseInt(a[2])
+        return time
+ 
+       }))
+     
      avgSleep = arrAvg(allData.map((item)=> item.sleepHours))
      
      
@@ -68,10 +87,10 @@ const ChartScreen = ({route})=>{
 
 
     const linedata = {
-        labels: ['15 dec', '16 dec', 'Wed','Thu', 'Fri', 'Sat'],
+        labels: dates,
         datasets: [
           {
-            data: [75, 70, 20 , 80, 100],
+            data: weights,
             strokeWidth: 2
           }
         ]
@@ -100,12 +119,16 @@ const ChartScreen = ({route})=>{
   />
 
   <Text h3 > Your daily food intake:</Text>
-  {console.log('avgcal - ', avgCal, 'sleep- ', avgSleep, 'water-', avgGlasses)}
+  {console.log('avgcal - ', avgCal, 'sleep- ', avgSleep, 'water-', avgGlasses, avgwalk, avgExe)}
+  {console.log('weight- ', weights, 'dates- ', dates)}
+  {console.log([avgCal*100/2000, avgSleep*100/8, avgGlasses*10, (avgwalk/60).toFixed(2)*100/30, (avgExe/60).toFixed(2)*100/30 ])}
 
   <HorizontalBarGraph
   
-      data={[avgCal.toFixed(2)*100/2000 , avgSleep.toFixed(2)*100/8, 20]}
-      labels={['Calories' , 'Sleep', 'Water']}
+      //data={[avgCal.toFixed(2)*100/2000 , avgSleep.toFixed(2)*100/8, 20]}
+      data={[avgCal*100/2000, avgSleep*100/8, avgGlasses*10, (avgwalk/60).toFixed(2)*100/30, (avgExe/60).toFixed(2)*100/30 ]}
+      
+      labels={['Calories' , 'Sleep', 'Water', 'walking', 'exercise']}
       width={Dimensions.get('window').width-10}
       height={350}
       barRadius={10}
