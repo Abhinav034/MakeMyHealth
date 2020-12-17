@@ -1,10 +1,10 @@
 import firebase from 'firebase'
 import React, {useState,useEffect} from 'react'
 import {View, StyleSheet, TouchableHighlight} from 'react-native'
-import {Text, Button} from 'react-native-elements'
+import {Text, Button, Input} from 'react-native-elements'
 import Dialog from 'react-native-dialog'
 import {Stopwatch} from 'react-native-stopwatch-timer'
-import {fbInsertHealthData, fbfetchHealthData} from '../firebase/fbCRUD'
+import {fbInsertHealthData, fbFetch} from '../firebase/fbCRUD'
 
 function addTimes (startTime, endTime) {
     var times = [ 0, 0, 0 ]
@@ -44,6 +44,8 @@ function addTimes (startTime, endTime) {
 }
   
 const MainScrComp = (props) =>{
+
+    const [weight , setWeight] = useState(-1);
 
     const date = (new Date().getDate()) + "-" + (new Date().getMonth() + 1)
    
@@ -136,7 +138,6 @@ const MainScrComp = (props) =>{
             {/* {console.log("qqq2222: ", date)} */}
             <View style={styles.horizontal}>
                 <Text style={styles.title}>Daily calorie intake: </Text>
-                
                 <Text style={styles.val}>{calories}/{props.expCal}</Text>
                 <Button style={styles.btn} title='Log' onPress = {()=> showDialogBox("cal")}/>
             </View>
@@ -146,12 +147,17 @@ const MainScrComp = (props) =>{
                 <Button style={styles.btn} title='Log' onPress = {()=> showDialogBox("water")}/>
             </View>
             <View style={styles.horizontal}>
+                <Text style={styles.title}>Daily sleep log: </Text>
+                <Text style={styles.val}>{sleepHours}/8</Text>
+                <Button style={styles.btn} title='Log' onPress = {()=> showDialogBox("sleep")}/>
+            </View>
+            <View style={styles.horizontal}>
                 <Text style={styles.title}>Daily walking/running: </Text>
                 {/* <Text style={styles.val}>{props.walking}</Text> */}
                 <Stopwatch style={styles.val} laps start={isWalkStart} reset={resetWalk} options={options} getTime={(time) => {
                     walk = addTimes(time, walkTime)
                 }}/>
-                <Text>{walkTime}</Text>
+                <Text style={styles.val}>{walkTime}</Text>
                 
             </View>
             <View style={styles.horizontal}>
@@ -169,17 +175,13 @@ const MainScrComp = (props) =>{
                 }}/>
                 
             </View>
-            <View style={styles.horizontal}>
-                <Text style={styles.title}>Daily sleep log: </Text>
-                <Text style={styles.val}>{sleepHours}/8</Text>
-                <Button style={styles.btn} title='Log' onPress = {()=> showDialogBox("sleep")}/>
-            </View>
+            
             <View style={styles.horizontal}>
                 <Text style={styles.title}>Daily exercise: </Text>
                 <Stopwatch style={styles.val} laps start={isExerciseStart} reset={resetExercise} options={options} getTime={(time) => {
                     exercise = addTimes(time, exerciseTime)
                 }}/>
-                <Text>{exerciseTime}</Text>
+                <Text style={styles.val}>{exerciseTime}</Text>
             </View>
             <View style={styles.horizontal}>
                 <Button style={styles.start} title={!isExerciseStart ? 'START' : 'STOP'} onPress={() => {
@@ -197,11 +199,21 @@ const MainScrComp = (props) =>{
                 
             </View>
 
+            <View style={styles.horizontal}>
+                <Input 
+                    placeholder="Enter your current weight (optional)"
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                    onChangeText = {setWeight}
+                    />
+            </View>
+
             <Button style={styles.btnSave} title="Save" value="btn1" onPress = {() => {
-                fbInsertHealthData({calories, waterGlass, walk, sleepHours, exercise})
+                console.log("weighing here..", weight);
+                fbInsertHealthData({calories, waterGlass, walk, sleepHours, exercise, weight})
             }}/>
 
-            <Button style={styles.texts} title="Chart Screen" onPress={props.nav}/>
+            <Button style={styles.btnSave} title="Chart Screen" onPress={props.nav}/>
 
             <Dialog.Container visible={visible}>
                 <Dialog.Title>Enter value</Dialog.Title>
@@ -223,21 +235,24 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     title: {
-        flex: 2,
-        fontSize: 18,
+        flex: 1.5,
+        fontSize: 16,
         fontWeight: 'bold'
     },
     val:{
         flex: 1,
+        fontSize: 16,
+        color: 'black'
     },
     btn:{
         flex: 0,
+        color: 'black',
     },
     buttonText: {
         flex:0,
-        fontSize: 20,
+        fontSize: 18,
         marginTop: 10,
-      },
+    },
     stopwatch: {
         flexDirection: 'row',
     },

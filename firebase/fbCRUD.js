@@ -30,8 +30,7 @@ const fbFetchUserName = async ()=>{
 
 const fbInsertUserData = async(data)=>{
     
-    const user = firebase.auth().currentUser
-    
+    const user = firebase.auth().currentUser 
       await firebase.database().ref(`/users/${user.uid}/data`)
     .set(data)
 }
@@ -56,25 +55,10 @@ const fbInsertHealthData = async(data) =>{
     .set(data)
 } 
 
-const fbfetchHealthData = () => {
-    var obj = null;
-    const user = firebase.auth().currentUser;
-    firebase.database().ref(`/users/${user.uid}/healthData/${date}`)
-    .on('value', async snapshot => {
-        obj = await snapshot.val()
-        
-    })
-    console.log('.......', obj)
-    return obj
-
-}
-
 export  {
     fbInsertUserName,
     fbInsertUserData,
     fbFetchUserName,
     fbFetch,
     fbInsertHealthData,
-    fbfetchHealthData,
-
 }
