@@ -1,4 +1,5 @@
 import React, {useState , useEffect} from 'react'
+import firebase from 'firebase'
 import {View , StyleSheet, Alert , ImageBackground} from 'react-native'
 import HomeComp from '../components/homeComponent'
 import {fbInsertUserData} from '../firebase/fbCRUD'
@@ -13,7 +14,7 @@ const HomeScreen = ({navigation})=>{
   const [age    , setAge]    = useState(25)
   const [lifestyle , setLifestyle] = useState(1.375)
 
-  const analyseButtonPressed = async()=>{
+  const analyseButtonPressed = ()=>{
 
     if (lifestyle!== ''){
       fbInsertUserData({gender , feet , inch , weight , age , lifestyle})
@@ -37,9 +38,11 @@ const HomeScreen = ({navigation})=>{
 
 
 
-  useEffect(()=>{
-    //console.log(fbFetchUserName())
-  })
+  // useEffect(()=>{
+  //   if (firebase.auth().currentUser){
+  //       navigation.navigate("AnalysisScreen")
+  //   }
+  // },[])
 
     return <ImageBackground source={require('../images/test.jpg')} style={{
       width: '100%',

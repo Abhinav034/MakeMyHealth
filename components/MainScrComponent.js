@@ -201,6 +201,8 @@ const MainScrComp = (props) =>{
                 fbInsertHealthData({calories, waterGlass, walk, sleepHours, exercise})
             }}/>
 
+            <Button style={styles.texts} title="Chart Screen" onPress={props.nav}/>
+
             <Dialog.Container visible={visible}>
                 <Dialog.Title>Enter value</Dialog.Title>
                 <Dialog.Description>{dbMessage}</Dialog.Description>

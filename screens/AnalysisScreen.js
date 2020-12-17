@@ -11,7 +11,7 @@ const AnalysisScreen = ({navigation}) => {
     const [userData , setData] = useState({})
 
     useEffect(() => {
-        var userData = fbFetch('data');
+        var userData = fbFetch();
         setData(userData)
     },[])
 
@@ -79,10 +79,7 @@ const AnalysisScreen = ({navigation}) => {
             })
         }
         }/>
-          <Button style={styles.texts} title="Chart Screen" onPress={() => 
-            { 
-            navigation.navigate('ChartScreen')
-         } }/>
+          
         
         
     </View>

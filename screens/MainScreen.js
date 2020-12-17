@@ -7,11 +7,17 @@ import {fbfetchHealthData} from '../firebase/fbCRUD'
 const MainScreen = ({navigation, route}) => {
     const expectedCalories = route.params.expectedCal;
     // console.log(cal);
-
+    const navPressed = ()=>{
+        navigation.navigate('ChartScreen')
+    }
     return <View style={styles.container}>
 
         <MainScrComp
             expCal = {expectedCalories}
+            nav = {navPressed}
+                
+                   
+        
         />
         
     </View>

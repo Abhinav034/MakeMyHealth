@@ -1,12 +1,14 @@
 import React, { useState ,useEffect} from 'react'
 import {View , Dimensions, StyleSheet} from 'react-native'
 import {Text} from 'react-native-elements'
-import {LineChart , BarChart} from 'react-native-chart-kit'
+import {LineChart} from 'react-native-chart-kit'
 import HorizontalBarGraph from '@chartiful/react-native-horizontal-bar-graph';
 import firebase from 'firebase'
 
 
-const ChartScreen = ()=>{
+const ChartScreen = ({route})=>{
+
+
 
     const [ healtData, setData ] = useState()
 
@@ -98,10 +100,12 @@ const ChartScreen = ()=>{
   />
 
   <Text h3 > Your daily food intake:</Text>
-    
+  {console.log('avgcal - ', avgCal, 'sleep- ', avgSleep, 'water-', avgGlasses)}
+
   <HorizontalBarGraph
-      data={[20,30,40,avgCal*100/2000]}
-      labels={['Protein(g)', 'Fat(g)', 'Carbs.(g)','Cal.(Kcal)']}
+  
+      data={[avgCal.toFixed(2)*100/2000 , avgSleep.toFixed(2)*100/8, 20]}
+      labels={['Calories' , 'Sleep', 'Water']}
       width={Dimensions.get('window').width-10}
       height={350}
       barRadius={10}
