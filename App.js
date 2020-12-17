@@ -22,12 +22,19 @@ const HomeStack = createStackNavigator();
 function HomeStackScreen(){
   return(
     <HomeStack.Navigator>
-      <HomeStack.Screen name="Screen" component={HomeScreen} options={{
-        headerShown:false,
+      <HomeStack.Screen name="HomeScreen" component={HomeScreen} options={{
+        title:'Bio',
+        headerLeft:null,
       }}/>
-      <HomeStack.Screen name="AnalysisScreen" component={AnalysisScreen} />
-      <HomeStack.Screen name="MainScreen" component={MainScreen}/>
-      <HomeStack.Screen name="ChartScreen" component={ChartScreen}/>
+      <HomeStack.Screen name="AnalysisScreen" component={AnalysisScreen} options={{
+        title:'Analysis'
+      }} />
+      <HomeStack.Screen name="MainScreen" component={MainScreen} options={{
+        title:'Your logs'
+      }}/>
+      <HomeStack.Screen name="ChartScreen" component={ChartScreen} options={{
+        title:'Progress'
+      }}/>
     </HomeStack.Navigator>
   )
 }
@@ -37,7 +44,7 @@ function NutritionInfo() {
       <HomeStack.Navigator>
           <HomeStack.Screen name="NutritionScreen" component={NutritionScreen} options={{
         headerLeft:null,
-        title:"Nutrition Info.",
+        title:"Nutrition Info",
         headerTitleStyle:{
           color:'grey'
         },
@@ -139,8 +146,12 @@ export default ()=>{
     <NavigationContainer>
 
     <AuthStack.Navigator>
-    <AuthStack.Screen name="SignInScreen" component={SignInScreen}/>
-    <AuthStack.Screen name="RegisterScreen" component={RegisterScreen}/>
+    <AuthStack.Screen name="SignInScreen" component={SignInScreen} options={{
+      title:'Sign In'
+    }}/>
+    <AuthStack.Screen name="RegisterScreen" component={RegisterScreen} options={{
+      title:"Register"
+    }}/>
     <AuthStack.Screen name="Home" component={tabScreens} options={{
         headerShown:false,
       }}/>

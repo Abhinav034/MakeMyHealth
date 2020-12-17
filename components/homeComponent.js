@@ -8,8 +8,8 @@ const HomeComp = (props)=>{
     const [index , setIndex] = useState(0)
 
     return <View>      
-      <View style={{marginVertical: 10 , justifyContent:'center'}}> 
-      <Text h4 style={{marginBottom: 15 , color:"grey" }}>Gender</Text>
+      <View style={{marginTop:10 , justifyContent:'center'}}> 
+      <Text h3 style={{marginBottom: 15 , color:"grey",marginLeft:Dimensions.get('window').width/2-55 }}>Gender</Text>
       <ButtonGroup selectedButtonStyle={{backgroundColor:'#8bcc25'}}
           onPress={index => {
             setIndex(index)
@@ -29,8 +29,8 @@ const HomeComp = (props)=>{
         />
       </View>
 
-      <Text h4 style={{marginVertical: 15 , color:"grey"}}>Height</Text>
-      <View style={{flexDirection:'row' , width:Dimensions.get('window').width , marginBottom: 20}}>
+      <Text h3 style={{marginVertical: 15,marginLeft:Dimensions.get('window').width/2-55, color:"grey"}}>Height</Text>
+      <View style={{flexDirection:'row' , width:Dimensions.get('window').width , marginBottom: 20 , marginTop:18}}>
         <Text h4 style={{marginTop:4 , marginRight:3 , marginLeft: 0, color:'grey'}}>Ft:</Text>
       <InputSpinner
           rounded={false}
@@ -70,8 +70,9 @@ const HomeComp = (props)=>{
           }}
       />
       </View>
-      <Text h4 style={{marginVertical: 15 , color:"grey"}}>Weight</Text>
-      <View style={{flexDirection:'row'}}>
+      <View style={{alignItems:'center'}}>
+      <Text h3 style={{marginVertical: 30 , color:"grey"}}>Weight</Text>
+      <View style={{flexDirection:'row' , paddingRight:65}}>
       <Text h4 style={{marginTop:4 , marginHorizontal:20 , color:'grey'}}>Kg:</Text>
       <InputSpinner
           rounded={false}
@@ -93,7 +94,7 @@ const HomeComp = (props)=>{
       />
       </View>
 
-      <Text h4 style={{marginVertical: 15 , color:"grey"}}>Age</Text>
+      <Text h3 style={{marginVertical: 30 , color:"grey"}}>Age</Text>
       <View style={{marginHorizontal: 70}}>
       <InputSpinner
           rounded={false}
@@ -114,8 +115,10 @@ const HomeComp = (props)=>{
           }}
       />
       </View>
+      </View>
+      
 
-     <View style={{marginTop:40,height:190, zIndex:1}}>
+     <View style={{marginTop:60,height:200}}>
       <DropDownPicker
             items={[
                 {label: 'sedentary (little or no exercise)', value: 1.2 , color:'white'},
@@ -128,6 +131,7 @@ const HomeComp = (props)=>{
             
             placeholder='lightly active (light exercise/sports 1-3 days/week)'
             labelStyle={{color:'#ff844f'}}
+            dropDownMaxHeight={200}
             defaultValue={props.lifestyle}
             containerStyle={{height: 40}}
             style={{backgroundColor: 'transparent'}}
@@ -144,9 +148,9 @@ const HomeComp = (props)=>{
       
 
 
-    <View style={styles.buttonContainer}>
-   <Button type="outline" titleStyle={{color:'#ff844f'}} buttonStyle={styles.buttonStyle} title="Analyse" onPress={props.analyseButtonPressed} />
-   </View>
+   
+   <Button buttonStyle={styles.buttonStyle} title="Analyse" onPress={props.analyseButtonPressed} />
+
   
     </View>
 }
@@ -156,16 +160,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   buttonStyle:{
-    borderColor:'#ff844f',
-    borderWidth:0.5, 
-    width:300,
-    marginLeft:10,
-    marginRight:10,
+    marginTop: 40,
+    backgroundColor:'#ff844f'
   },
-  buttonContainer:{
-    
-
-  }
 })
 
 export default HomeComp

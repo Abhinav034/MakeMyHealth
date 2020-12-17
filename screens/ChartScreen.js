@@ -1,5 +1,5 @@
 import React, { useState ,useEffect} from 'react'
-import {View , Dimensions, StyleSheet} from 'react-native'
+import {View , Dimensions, StyleSheet,ScrollView} from 'react-native'
 import {Text} from 'react-native-elements'
 import {LineChart} from 'react-native-chart-kit'
 import HorizontalBarGraph from '@chartiful/react-native-horizontal-bar-graph';
@@ -112,8 +112,67 @@ const ChartScreen = ({route})=>{
           }
         ]
     } 
-    return <View style={styles.container}>
-  <Text h3 > Your overall health chart:</Text>
+    return <ScrollView>
+    
+    <View style={styles.container}>
+
+  <Text h3 style={{color:'grey'}}> Your daily food intake:</Text>
+  {console.log('avgcal - ', avgCal, 'sleep- ', avgSleep, 'water-', avgGlasses, avgwalk, avgExe)}
+  {console.log('weight- ', weights, 'dates- ', dates)}
+
+  {console.log([avgCal*100/2000, avgSleep*100/8, avgGlasses*10, (avgwalk/60).toFixed(2)*100/30, (avgExe/60).toFixed(2)*100/30 ])}
+
+  <View style={{height:300}}>
+  <HorizontalBarGraph
+  
+  //data={[avgCal.toFixed(2)*100/2000 , avgSleep.toFixed(2)*100/8, 20]}
+  data={[avgCal*100/route.params.cal, avgSleep*100/8, avgGlasses*10, (avgwalk/60).toFixed(2)*100/30, (avgExe/60).toFixed(2)*100/30 ]}
+  
+  labels={['Calories' , 'Sleep', 'Water', 'walking', 'exercise']}
+  width={Dimensions.get('window').width-10}
+  height={350}
+  barRadius={10}
+  barColor={'#1758a3'}
+  baseConfig={{
+    hasYAxisBackgroundLines:false,
+    xAxisLabelStyle: {
+      rotation: 0,
+      fontSize: 13,
+      width: 70,
+      yOffset: 5,
+      xOffset: -20
+    },
+    yAxisLabelStyle: {
+      rotation: 0,
+      fontSize: 13,
+      position: 'bottom',
+      xOffset: 20,
+      decimals: 0,
+      height: 100,
+    }
+  }}
+  style={styles.chart}
+/>
+  </View>
+
+  <View style={{flexDirection:'row' , marginVertical:50}}>
+
+<View style={{flexDirection:'column'}}>
+<Text h5 style={{margin:10, fontSize:20}}>Avg calories intake: <Text style={{color:"#1758a3"}}>{Math.floor(avgCal*100/route.params.cal)}</Text></Text>
+<Text h5 style={{margin:10, fontSize:20}}>Avg sleep: <Text style={{color:"#1758a3"}}>{Math.floor(avgSleep*100/8)}</Text></Text>
+<Text h5 style={{margin:10 , fontSize:20}}>Avg water intake: <Text style={{color:"#1758a3"}}>{Math.floor(avgGlasses*10)}</Text></Text>
+<Text h5 style={{margin:10, fontSize:20}}>Avg exercise time: <Text style={{color:"#1758a3"}}>{Math.floor((avgExe/60).toFixed(2)*100/30)}</Text></Text>
+</View>
+<View style={{flexDirection:'column'}}>
+<Text h5 style={{margin:10, fontSize:20}}>Avg walk time: <Text style={{color:"#1758a3"}}>{Math.floor((avgwalk/60).toFixed(2)*100/30)}</Text></Text>
+</View>
+
+
+
+
+  </View>
+     <Text h3 style={{color:'grey'}} > Your weight chart:</Text>
+     
   <LineChart
     data={linedata}
     width={Dimensions.get('window').width} 
@@ -131,49 +190,13 @@ const ChartScreen = ({route})=>{
     }}
     style={{
       marginVertical: 8,
-      borderRadius: 10
+      borderRadius: 10,
     }}
   />
-
-  <Text h3 > Your daily food intake:</Text>
-  {console.log('avgcal - ', avgCal, 'sleep- ', avgSleep, 'water-', avgGlasses, avgwalk, avgExe)}
-  {console.log('weight- ', weights, 'dates- ', dates)}
-
-  {console.log([avgCal*100/2000, avgSleep*100/8, avgGlasses*10, (avgwalk/60).toFixed(2)*100/30, (avgExe/60).toFixed(2)*100/30 ])}
-
-  <HorizontalBarGraph
   
-      //data={[avgCal.toFixed(2)*100/2000 , avgSleep.toFixed(2)*100/8, 20]}
-      data={[avgCal*100/route.params.cal, avgSleep*100/8, avgGlasses*10, (avgwalk/60).toFixed(2)*100/30, (avgExe/60).toFixed(2)*100/30 ]}
-      
-      labels={['Calories' , 'Sleep', 'Water', 'walking', 'exercise']}
-      width={Dimensions.get('window').width-10}
-      height={350}
-      barRadius={10}
-      barColor={'#1758a3'}
-      baseConfig={{
-        hasYAxisBackgroundLines:false,
-        xAxisLabelStyle: {
-          rotation: 0,
-          fontSize: 13,
-          width: 70,
-          yOffset: 5,
-          xOffset: -20
-        },
-        yAxisLabelStyle: {
-          rotation: 0,
-          fontSize: 13,
-          position: 'bottom',
-          xOffset: 20,
-          decimals: 0,
-          height: 100
-        }
-      }}
-      style={styles.chart}
-    />
 
-    </View>
-
+      </View>
+    </ScrollView>
 }
 
 const styles = StyleSheet.create({
@@ -186,7 +209,6 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     borderRadius: 20,
     width: Dimensions.get('window').width,
-    backgroundColor: '#fff',
    
   }
 })

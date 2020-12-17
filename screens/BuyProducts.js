@@ -13,7 +13,7 @@ const BuyProductsScreen = ({navigation})=>{
 
     const fetchData = async()=>{
         try {
-            const res = await fetch('https://api.rainforestapi.com/request?api_key=670F86CB02C24F8E895161FE19732A31&type=search&amazon_domain=amazon.ca&search_term=healthy+foods&sort_by=featured')
+            const res = await fetch('https://api.rainforestapi.com/request?api_key=2631CEE9EA48471E9677199F8C6D1F40&type=search&amazon_domain=amazon.ca&search_term=healthy+foods&sort_by=featured')
             const data = await res.json()
             
             const results = data.search_results
@@ -42,7 +42,6 @@ const BuyProductsScreen = ({navigation})=>{
     }
 
     return <View style={{flex:1 , backgroundColor:'#fff'}}>
-        {console.log('rendering___')}
             <ActivityIndicator animating={indicatorState} size={'large'|| 50} color={'grey'} style={{  position: 'absolute',
     left: 0,
     right: 0,

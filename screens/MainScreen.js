@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {View, StyleSheet} from 'react-native'
+import {View, StyleSheet , ScrollView} from 'react-native'
 import {Text, Button} from 'react-native-elements'
 import MainScrComp from '../components/MainScrComponent'
 import {fbfetchHealthData} from '../firebase/fbCRUD'
@@ -14,13 +14,15 @@ const MainScreen = ({navigation, route}) => {
     }
     return <View style={styles.container}>
 
-        <MainScrComp
+       <ScrollView>
+       <MainScrComp
             expCal = {expectedCalories}
             nav = {navPressed}
                 
                    
         
         />
+       </ScrollView>
         
     </View>
 }

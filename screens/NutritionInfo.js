@@ -19,6 +19,10 @@ const NutritionScreen = ()=>{
         const fetchData = async (search_kw_p)=>{
             try {
 
+                if (search_kw_p === '' || !search_kw_p){
+                    return
+                }
+
                 search_kw_p = search_kw_p.split(' ').join('%20')
                 var url = `https://api.edamam.com/api/nutrition-data?app_id=651febce&app_key=f04e2edaad63025bfce70088ca6b792c&ingr=${search_kw_p}`
 
@@ -66,7 +70,7 @@ const NutritionScreen = ()=>{
         </ActivityIndicator>
 
         <View style={styles.searchContainer}>
-        <EvilIcons name="search" size={30} color="black" style={{paddingTop:6}} />
+        <EvilIcons name="search" size={30} color="black" style={{paddingTop:7}} />
        <Input  style={styles.data} placeholder='Enter food...' inputContainerStyle={{borderBottomWidth:0}}
        placeholderTextColor='#404040'
        value={search_kw}
@@ -91,6 +95,7 @@ const styles = StyleSheet.create({
         borderRadius:10,
         color:'black',
         marginBottom:10,
+        marginBottom:20
     },
     text:{
         textAlign:'center',
@@ -110,7 +115,7 @@ const styles = StyleSheet.create({
         margin:5,
         paddingHorizontal:10,
         height:45,
-        paddingVertical:5
+        paddingVertical:3
         
     }
 });

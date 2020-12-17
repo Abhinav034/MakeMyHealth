@@ -1,6 +1,6 @@
 import React, {useState , useEffect} from 'react'
 import firebase from 'firebase'
-import {View , StyleSheet, Alert , ImageBackground} from 'react-native'
+import {View , StyleSheet, Alert , ImageBackground , ScrollView} from 'react-native'
 import HomeComp from '../components/homeComponent'
 import {fbInsertUserData} from '../firebase/fbCRUD'
 
@@ -44,31 +44,36 @@ const HomeScreen = ({navigation})=>{
   //   }
   // },[])
 
-    return  <View style={{flex:1 , backgroundColor:'#fff'}}>
-      <View style={styles.container}>
+    return <View style={{flex:1 , backgroundColor:'#fff'}}>
       
-        <HomeComp
-        genderChanged = {setGender}
-        
-        feet={feet}
-        feetChanged={setFeet}
+      <View style={styles.container}>
+      <ScrollView automaticallyAdjustContentInsets={true} centerContent={true} keyboardDismissMode={'on-drag'}>
+      <HomeComp
+      genderChanged = {setGender}
+      
+      feet={feet}
+      feetChanged={setFeet}
 
-        inch={inch}
-        inchChanged={setInch}
+      inch={inch}
+      inchChanged={setInch}
 
-        weight={weight}
-        weightChanged={setWeight}
+      weight={weight}
+      weightChanged={setWeight}
 
-        age={age}
-        ageChanged={setAge}
+      age={age}
+      ageChanged={setAge}
 
-        lifestyle={lifestyle}
-        lifestyleChanged = {setLifestyle}
+      lifestyle={lifestyle}
+      lifestyleChanged = {setLifestyle}
 
-        analyseButtonPressed={analyseButtonPressed}
-        />
-   </View>
+      analyseButtonPressed={analyseButtonPressed}
+      />
+      </ScrollView>
+ </View>
+    
     </View>
+
+  
 
 }
 
@@ -77,8 +82,8 @@ const HomeScreen = ({navigation})=>{
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      marginTop:40,
-      marginHorizontal:20,
+      marginTop:10,
+      marginHorizontal:10,
     }
   });
 
