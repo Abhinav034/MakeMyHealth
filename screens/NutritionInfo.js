@@ -1,7 +1,7 @@
 import React,{useEffect , useState} from 'react'
 import {View, StyleSheet, ActivityIndicator, ImageBackground} from 'react-native'
 import {Input, Text} from 'react-native-elements'
-
+import { EvilIcons } from '@expo/vector-icons';
 
 
 
@@ -52,15 +52,10 @@ const NutritionScreen = ()=>{
 
 
 
-    return <ImageBackground source={require('../images/test.jpg')} style={{
-        width: '100%',
-        height: '100%',
-        flex: 1 
-  }}>
-    <View>
+    return <View style={styles.container}>
        
         
-        <ActivityIndicator animating={spinner} size={'large'|| 50} color={'white'} style={{  position: 'absolute',
+        <ActivityIndicator animating={spinner} size={'large'|| 50} color={'grey'} style={{  position: 'absolute',
     left: 0,
     right: 0,
     top: 0,
@@ -70,15 +65,14 @@ const NutritionScreen = ()=>{
 
         </ActivityIndicator>
 
-
-    
-       
-       <Input  style={styles.data} placeholder='Enter Food' inputContainerStyle={{borderBottomWidth:0}}
-       placeholderTextColor='#919191'
+        <View style={styles.searchContainer}>
+        <EvilIcons name="search" size={30} color="black" style={{paddingTop:6}} />
+       <Input  style={styles.data} placeholder='Enter food...' inputContainerStyle={{borderBottomWidth:0}}
+       placeholderTextColor='#404040'
        value={search_kw}
        onChangeText = {changeText=>setSearch(changeText) }
        onEndEditing={()=> fetchData(search_kw) }></Input>
-       
+       </View>
         
         
        
@@ -86,7 +80,6 @@ const NutritionScreen = ()=>{
         <Text h4 style={styles.text}>{data}</Text>
         
     </View>
-    </ImageBackground>
 }
 
 
@@ -95,19 +88,30 @@ const styles = StyleSheet.create({
     data: {
         borderWidth:0,
         width: 50 ,
-        backgroundColor:'#333333',
         borderRadius:10,
-        marginTop:10,
-        color:'white',
-        paddingHorizontal:5,
-        
-        
+        color:'black',
+        marginBottom:10,
     },
     text:{
         textAlign:'center',
-        color:'white',
-        marginTop:20
+        color:'#8bcc25',
+        marginTop:20,
+        backgroundColor:'#fff'
 
+    },
+    container:{
+        backgroundColor:'#fff',
+        
+    },
+    searchContainer:{
+        flexDirection:'row',
+        backgroundColor:'lightgrey',
+        borderRadius:12,
+        margin:5,
+        paddingHorizontal:10,
+        height:45,
+        paddingVertical:5
+        
     }
 });
 

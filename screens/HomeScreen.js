@@ -44,12 +44,7 @@ const HomeScreen = ({navigation})=>{
   //   }
   // },[])
 
-    return <ImageBackground source={require('../images/test.jpg')} style={{
-      width: '100%',
-      height: '100%',
-      flex: 1 
-}}>
-      <View style={{flex:1}}>
+    return  <View style={{flex:1 , backgroundColor:'#fff'}}>
       <View style={styles.container}>
       
         <HomeComp
@@ -74,7 +69,7 @@ const HomeScreen = ({navigation})=>{
         />
    </View>
     </View>
-    </ImageBackground>
+
 }
 
 

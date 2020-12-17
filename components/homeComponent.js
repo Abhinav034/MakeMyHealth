@@ -9,8 +9,8 @@ const HomeComp = (props)=>{
 
     return <View>      
       <View style={{marginVertical: 10 , justifyContent:'center'}}> 
-      <Text h4 style={{marginBottom: 15 , color:"white" }}>Gender</Text>
-      <ButtonGroup selectedButtonStyle={{backgroundColor:'#991c1c'}}
+      <Text h4 style={{marginBottom: 15 , color:"grey" }}>Gender</Text>
+      <ButtonGroup selectedButtonStyle={{backgroundColor:'#8bcc25'}}
           onPress={index => {
             setIndex(index)
             switch(index){
@@ -29,14 +29,15 @@ const HomeComp = (props)=>{
         />
       </View>
 
-      <Text h4 style={{marginVertical: 15 , color:"white"}}>Height</Text>
+      <Text h4 style={{marginVertical: 15 , color:"grey"}}>Height</Text>
       <View style={{flexDirection:'row' , width:Dimensions.get('window').width , marginBottom: 20}}>
-        <Text h4 style={{marginTop:4 , marginRight:3 , marginLeft: 0, color:'white'}}>Ft:</Text>
+        <Text h4 style={{marginTop:4 , marginRight:3 , marginLeft: 0, color:'grey'}}>Ft:</Text>
       <InputSpinner
           rounded={false}
           showBorder
+          color={'#ff844f'}
           fontSize={18}
-          inputStyle={{color:'white'}}
+          inputStyle={{color:'#ff844f'}}
           height={35}
           width={Dimensions.get('window').width/2-50}
           max={8}
@@ -49,12 +50,13 @@ const HomeComp = (props)=>{
               props.feetChanged(num);
           }}
       />
-      <Text h4 style={{marginTop:4 , marginHorizontal:3, color:'white'}}>In:</Text>
+      <Text h4 style={{marginTop:4 , marginHorizontal:3, color:'grey'}}>In:</Text>
        <InputSpinner
           rounded={false}
           showBorder
+          color={'#ff844f'}
           fontSize={18}
-          inputStyle={{color:'white'}}
+          inputStyle={{color:'#ff844f'}}
           height={35}
           width={Dimensions.get('window').width/2-50}
           max={11}
@@ -68,14 +70,15 @@ const HomeComp = (props)=>{
           }}
       />
       </View>
-      <Text h4 style={{marginVertical: 15 , color:"white"}}>Weight</Text>
+      <Text h4 style={{marginVertical: 15 , color:"grey"}}>Weight</Text>
       <View style={{flexDirection:'row'}}>
-      <Text h4 style={{marginTop:4 , marginHorizontal:20 , color:'white'}}>Kg:</Text>
+      <Text h4 style={{marginTop:4 , marginHorizontal:20 , color:'grey'}}>Kg:</Text>
       <InputSpinner
           rounded={false}
           showBorder
+          color={'#ff844f'}
           fontSize={20}
-          inputStyle={{color:'white'}}
+          inputStyle={{color:'#ff844f'}}
           height={35}
           width={Dimensions.get('window').width/2}
           max={200}
@@ -90,13 +93,14 @@ const HomeComp = (props)=>{
       />
       </View>
 
-      <Text h4 style={{marginVertical: 15 , color:"white"}}>Age</Text>
+      <Text h4 style={{marginVertical: 15 , color:"grey"}}>Age</Text>
       <View style={{marginHorizontal: 70}}>
       <InputSpinner
           rounded={false}
           showBorder
+          color={'#ff844f'}
           fontSize={20}
-          inputStyle={{color:'white'}}
+          inputStyle={{color:'#ff844f'}}
           height={35}
           width={Dimensions.get('window').width/2}
           max={100}
@@ -123,7 +127,7 @@ const HomeComp = (props)=>{
             ]}
             
             placeholder='lightly active (light exercise/sports 1-3 days/week)'
-            labelStyle={{color:'white'}}
+            labelStyle={{color:'#ff844f'}}
             defaultValue={props.lifestyle}
             containerStyle={{height: 40}}
             style={{backgroundColor: 'transparent'}}
@@ -140,9 +144,9 @@ const HomeComp = (props)=>{
       
 
 
- 
-   <Button type="outline" titleStyle={{color:'white'}} buttonStyle={{ borderColor:'red',borderWidth:0.5, width:Dimensions.get('window').width-40}} title="Analyse" onPress={props.analyseButtonPressed} />
-   
+    <View style={styles.buttonContainer}>
+   <Button type="outline" titleStyle={{color:'#ff844f'}} buttonStyle={styles.buttonStyle} title="Analyse" onPress={props.analyseButtonPressed} />
+   </View>
   
     </View>
 }
@@ -150,6 +154,17 @@ const HomeComp = (props)=>{
 const styles = StyleSheet.create({
   textStyles:{
     marginBottom: 10,
+  },
+  buttonStyle:{
+    borderColor:'#ff844f',
+    borderWidth:0.5, 
+    width:300,
+    marginLeft:10,
+    marginRight:10,
+  },
+  buttonContainer:{
+    
+
   }
 })
 

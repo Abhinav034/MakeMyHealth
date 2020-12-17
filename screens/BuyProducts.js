@@ -13,7 +13,7 @@ const BuyProductsScreen = ({navigation})=>{
 
     const fetchData = async()=>{
         try {
-            const res = await fetch('https://api.rainforestapi.com/request?api_key=3079E64C29314CADA1DDB2FD78D1D222&type=search&amazon_domain=amazon.ca&search_term=healthy+foods&sort_by=featured')
+            const res = await fetch('https://api.rainforestapi.com/request?api_key=670F86CB02C24F8E895161FE19732A31&type=search&amazon_domain=amazon.ca&search_term=healthy+foods&sort_by=featured')
             const data = await res.json()
             
             const results = data.search_results
@@ -41,9 +41,9 @@ const BuyProductsScreen = ({navigation})=>{
     
     }
 
-    return <View style={{flex:1 , backgroundColor:'#333333'}}>
+    return <View style={{flex:1 , backgroundColor:'#fff'}}>
         {console.log('rendering___')}
-            <ActivityIndicator animating={indicatorState} size={'large'|| 50} color={'white'} style={{  position: 'absolute',
+            <ActivityIndicator animating={indicatorState} size={'large'|| 50} color={'grey'} style={{  position: 'absolute',
     left: 0,
     right: 0,
     top: 0,
@@ -55,13 +55,13 @@ const BuyProductsScreen = ({navigation})=>{
             keyExtractor={(item)=>`${item.key}`}
             renderItem = {({item})=>{
                 return <TouchableOpacity onPress={()=> navigation.navigate('WebView' , {link:item.link})}>
-                     <View style={{borderWidth:1 , borderColor:'#858585', padding:10 , marginVertical:8 , backgroundColor:'#d6d6d6'}}>
+                     <View style={{borderBottomWidth:1 , borderBottomColor:'lightgrey', marginVertical:15 ,paddingBottom:10, backgroundColor:'#fff'}}>
                 <View style={{flexDirection:'row', paddingRight:10}}>
                  <Image style={{width: 130,height: 130}} source={{uri:item.image}}></Image>
                 <View>
-                <Text style={{width:Dimensions.get('window').width-10 , color:'#242424'}} h4>{item.title.length<50?item.title:item.title.substring(0, 50)}</Text>
-                <Text h4 style={{marginRight: 20 , color:'#242424',marginTop:5}}>CAD$ {item.price}</Text>
-                 <Text h4 style={{color:'#242424',marginTop:8}}>Rating {item.rating}</Text>
+                <Text style={{color:'#242424'}} h4>{item.title.length<20?item.title:item.title.substring(0, 30)}</Text>
+                <Text h4 style={{marginRight: 20 , color:'#242424' ,marginTop:10}}>CAD$ {item.price}</Text>
+                 <Text h4 style={{color:'grey' , marginTop:5}}>Rating {item.rating}</Text>
                 </View>
                 </View>
                 </View>

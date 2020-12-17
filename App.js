@@ -12,9 +12,9 @@ import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import BuyProductsScreen from './screens/BuyProducts'
-import { Entypo } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons'; 
-import { FontAwesome5 } from '@expo/vector-icons'; 
+import { Entypo } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
+import { FontAwesome5 } from '@expo/vector-icons'
 
 const AuthStack = createStackNavigator();
  
@@ -39,10 +39,10 @@ function NutritionInfo() {
         headerLeft:null,
         title:"Nutrition Info.",
         headerTitleStyle:{
-          color:'white'
+          color:'grey'
         },
         headerStyle:{
-          backgroundColor:'#333333'
+          backgroundColor:'#fff'
         }
       }}/>
         </HomeStack.Navigator>
@@ -56,10 +56,10 @@ function DietPlan() {
         headerLeft:null,
         title:'Buy Products',
         headerTitleStyle:{
-          color:'white'
+          color:'grey'
         },
         headerStyle:{
-          backgroundColor:'#333333'
+          backgroundColor:'#fff'
         }
         
         
@@ -75,14 +75,14 @@ const Tab = createBottomTabNavigator();
 function tabScreens() {
     return  <Tab.Navigator
     tabBarOptions={{
-      activeTintColor: 'orange',
-      inactiveTintColor: 'white',
-      activeBackgroundColor: '#1c1c1c',
-      inactiveBackgroundColor: '#333333',
+      activeTintColor: '#8bcc25',
+      inactiveTintColor: 'lightgrey',
+      activeBackgroundColor: '#fff',
+      inactiveBackgroundColor: '#fff',
          style:{
-          backgroundColor: '#CE4418',
-          paddingBottom:0,
-          height:65
+          backgroundColor: '#fff',
+          paddingBottom:15,
+          height:70
          },
          labelStyle:{
            fontSize:12,
