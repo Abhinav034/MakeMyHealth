@@ -11,6 +11,7 @@ const ChartScreen = ({route})=>{
 
 
     const [ healthData, setData ] = useState()
+    const [userWeight, setWeight] = useState(0)
     
 
     
@@ -31,9 +32,13 @@ const ChartScreen = ({route})=>{
     .on('value' , snapshot =>{
         console.log(snapshot.val())
         setData(snapshot.val())
+    })
 
-
-
+    
+    firebase.database().ref(`/users/${user.uid}/data`)
+    .on('value' , snapshot =>{
+        console.log(snapshot.val())
+        setWeight(snapshot.val().weight)
     })
 
     
@@ -41,17 +46,17 @@ const ChartScreen = ({route})=>{
       
   },[])
 
-  var avgCal = 1;
-  var avgGlasses = 1;
-  var avgSleep = 1;
-  var avgExe = 0;
-  var avgwalk = 0;
-
-  var dates = ['1-12', '2-12']
-  var weights = [80, 70]
+  var avgCal = 0.01;
+  var avgGlasses = 0.01;
+  var avgSleep = 0.01;
+  var avgExe = 0.01;
+  var avgwalk = 0.01;
+  var visible = false
+  var dates = ['today']
+  var weights = [userWeight]
   if(healthData){
 
-    
+    visible = true
 
     var allData = Object.values(healthData)
 
@@ -62,13 +67,13 @@ const ChartScreen = ({route})=>{
     dates = []
     weights = []
     Object.entries(healthData).forEach( ([key, value]) => {
-     if (value.weight !== -1){
+     if (value.weight !== -1 ){
       dates.push(key)
       weights.push(value.weight)
      }
       
     })
-
+    
     // dates = healthDataArr.filter((item => Object.values(item)[0].weight !== -1 )).map((i) => Object.keys(i)[0])
     // weights = healthDataArr.filter((item => Object.values(item)[0].weight !== -1 )).map((i) => Object.values(i)[0].weight)
 
@@ -95,16 +100,30 @@ const ChartScreen = ({route})=>{
      
      avgSleep = arrAvg(allData.map((item)=> item.sleepHours))
      
-     
+      console.log('before', visible)
 
+     if(avgCal==0 && avgGlasses==0 && avgwalk==0 && avgExe==0 && avgSleep==0){
+       visible = false;
+     }
+
+     console.log('after', visible)
+
+
+     
+      
 
 
    }
 
 
-
+   if (dates.length == 0){
+     dates = ['Today'],
+     weights = [userWeight]
+   }
+   console.log('c1', dates)
+   console.log('c2',weights)
     const linedata = {
-        labels: dates,
+        labels: dates, 
         datasets: [
           {
             data: weights,
@@ -112,7 +131,7 @@ const ChartScreen = ({route})=>{
           }
         ]
     } 
-    return <ScrollView>
+    return <ScrollView> 
     
     <View style={styles.container}>
 
@@ -120,40 +139,40 @@ const ChartScreen = ({route})=>{
   {console.log('avgcal - ', avgCal, 'sleep- ', avgSleep, 'water-', avgGlasses, avgwalk, avgExe)}
   {console.log('weight- ', weights, 'dates- ', dates)}
 
-  {console.log([avgCal*100/2000, avgSleep*100/8, avgGlasses*10, (avgwalk/60).toFixed(2)*100/30, (avgExe/60).toFixed(2)*100/30 ])}
+  {/* {console.log([avgCal*100/2000, avgSleep*100/8, avgGlasses*10, (avgwalk/60)  (2)*100/30, (avgExe/60)  (2)*100/30 ])} */}
 
-  <View style={{height:300}}>
-  <HorizontalBarGraph
-  
-  //data={[avgCal.toFixed(2)*100/2000 , avgSleep.toFixed(2)*100/8, 20]}
-  data={[avgCal*100/route.params.cal, avgSleep*100/8, avgGlasses*10, (avgwalk/60).toFixed(2)*100/30, (avgExe/60).toFixed(2)*100/30 ]}
-  
-  labels={['Calories' , 'Sleep', 'Water', 'walking', 'exercise']}
-  width={Dimensions.get('window').width-10}
-  height={350}
-  barRadius={10}
-  barColor={'#1758a3'}
-  baseConfig={{
-    hasYAxisBackgroundLines:false,
-    xAxisLabelStyle: {
-      rotation: 0,
-      fontSize: 13,
-      width: 70,
-      yOffset: 5,
-      xOffset: -20
-    },
-    yAxisLabelStyle: {
-      rotation: 0,
-      fontSize: 13,
-      position: 'bottom',
-      xOffset: 20,
-      decimals: 0,
-      height: 100,
-    }
-  }}
-  style={styles.chart}
-/>
-  </View>
+{ visible?<View style={{height:300}}>
+    <HorizontalBarGraph
+    
+    //data={[avgCal  (2)*100/2000 , avgSleep  (2)*100/8, 20]}
+    data={[avgCal*100/route.params.cal, avgSleep*100/8, avgGlasses*10, (avgwalk/60)*100/30, (avgExe/60)*100/30 ]}
+    
+    labels={['Calories' , 'Sleep', 'Water', 'walking', 'exercise']}
+    width={Dimensions.get('window').width-10}
+    height={350}
+    barRadius={10}
+    barColor={'#1758a3'}
+    baseConfig={{
+      hasYAxisBackgroundLines:false,
+      xAxisLabelStyle: {
+        rotation: 0,
+        fontSize: 13,
+        width: 70,
+        yOffset: 5,
+        xOffset: -20
+      },
+      yAxisLabelStyle: {
+        rotation: 0,
+        fontSize: 13,
+        position: 'bottom',
+        xOffset: 20,
+        decimals: 0,
+        height: 100,
+      }
+    }}
+    style={styles.chart}
+  />
+    </View>:<View style={{alignItems:'center', marginTop:30}}><Text h3>No health record yet.</Text></View>}
 
 
 
@@ -164,9 +183,9 @@ const ChartScreen = ({route})=>{
 
   <Text style={{margin:10 , fontSize:20}}>Avg water intake: <Text style={{color:"#1758a3"}}>{Math.floor(avgGlasses*10)} %</Text></Text>
 
-  <Text style={{margin:10, fontSize:20}}>Avg exercise time: <Text style={{color:"#1758a3"}}>{Math.floor((avgExe/60).toFixed(2)*100/30)} %</Text></Text>
+  <Text style={{margin:10, fontSize:20}}>Avg exercise time: <Text style={{color:"#1758a3"}}>{Math.floor((avgExe/60)*100/30)} %</Text></Text>
 
-  <Text style={{margin:10, fontSize:20}}>Avg walk time: <Text style={{color:"#1758a3"}}>{Math.floor((avgwalk/60).toFixed(2)*100/30)} %</Text></Text>
+  <Text style={{margin:10, fontSize:20}}>Avg walk time: <Text style={{color:"#1758a3"}}>{Math.floor((avgwalk/60)*100/30)} %</Text></Text>
 </View>
 
 
@@ -174,7 +193,7 @@ const ChartScreen = ({route})=>{
 
      <Text h3 style={{color:'#387ea6', fontWeight: 'bold'}} > Your weight chart:</Text>
      
-  <LineChart
+   <LineChart
     data={linedata}
     width={Dimensions.get('window').width} 
     height={250}
@@ -193,7 +212,7 @@ const ChartScreen = ({route})=>{
       marginVertical: 8,
       borderRadius: 10,
     }}
-  />
+  /> 
   
 
       </View>

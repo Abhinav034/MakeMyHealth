@@ -56,7 +56,7 @@ const MainScrComp = (props) =>{
     const [sleepHours, changedSleepHours] = useState(0);
     const [walkTime, changedWalkTime] = useState('----');
     const [exerciseTime, changedExerciseTime] = useState('----');
-    const [weight , setWeight] = useState(-1);
+    const [weight_1 , setWeight] = useState(-1);
 
     const [isWalkStart, setIsWalkStart] = useState(false);
     const [resetWalk, setResetWalk] = useState(false);
@@ -81,8 +81,10 @@ const MainScrComp = (props) =>{
             changedWalkTime(snapshot.val().walk)
             changedExerciseTime(snapshot.val().exercise)
             setWeight(snapshot.val().weight)
+
+
         })
-       
+  
     },[])
 
     const showDialogBox = (value) =>{
@@ -239,10 +241,17 @@ const MainScrComp = (props) =>{
             </View>
 
             <Button buttonStyle={styles.buttonStyle} title="Save" value="btn1" onPress = {() => {
-                (weight>0) ? weight : -1;
-                console.log("weighing here..", weight);
+
+                var weight
+                if (weight_1 > 0){
+                   weight = parseInt(weight_1) //parth 
+                }
+                else{
+                    weight = -1
+                }
+                // console.log("weighing here..", typeof(weight));
                 fbInsertHealthData({calories, waterGlass, walk, sleepHours, exercise, weight})
-            }}/>
+            }}/> 
 
             <Button buttonStyle={styles.buttonStyle} title="Chart Screen" onPress={props.nav}/>
 
