@@ -3,6 +3,7 @@ import firebase from 'firebase'
 import {View , StyleSheet, Alert} from 'react-native'
 import {Text} from 'react-native-elements'
 import SignInComp from '../components/SignInComponent'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {fbInsertUserName} from '../firebase/fbCRUD'
 
 const SignInScreen = ({navigation})=>{
@@ -13,6 +14,10 @@ const SignInScreen = ({navigation})=>{
   const signInButtonPressed = async()=>{
    try {
     await firebase.auth().signInWithEmailAndPassword(email , password)
+
+    const jsonValue = JSON.stringify({email , password})
+    await AsyncStorage.setItem('@storage_Key', jsonValue)
+
     navigation.navigate('Home')
    } catch (error) {
     Alert.alert(
@@ -33,9 +38,23 @@ const SignInScreen = ({navigation})=>{
 
   useEffect(()=>{
     
-    setEmail('abhi@gmail.com')
-    setPassword('password')
+
+     getDataFromDevice()
+
   },[])
+
+  async function getDataFromDevice(){
+    const data = await AsyncStorage.getItem('@storage_Key')
+    const jsonValue = JSON.parse(data)
+    if (jsonValue !== null){
+    
+      setEmail(jsonValue.email)
+      setPassword(jsonValue.password)
+
+      return
+    }
+   
+  }
 
     return  <View style={styles.container}>
     <Text h3 style={styles.textStyles} >Sign in to your account</Text>
