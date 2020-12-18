@@ -1,6 +1,6 @@
 import firebase from 'firebase'
 import React, {useState,useEffect} from 'react'
-import {View, StyleSheet, TouchableHighlight} from 'react-native'
+import {View, StyleSheet, TouchableHighlight , LogBox} from 'react-native'
 import {Text, Button, Input} from 'react-native-elements'
 import Dialog from 'react-native-dialog'
 import {Stopwatch} from 'react-native-stopwatch-timer'
@@ -84,7 +84,9 @@ const MainScrComp = (props) =>{
 
 
         })
-  
+
+        LogBox.ignoreLogs(['Warning: ...'])
+        LogBox.ignoreAllLogs()
     },[])
 
     const showDialogBox = (value) =>{
