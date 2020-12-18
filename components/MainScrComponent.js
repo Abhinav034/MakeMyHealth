@@ -133,35 +133,61 @@ const MainScrComp = (props) =>{
    
     return(
         
-        <View>
-
-            {/* {console.log("qqq2222: ", date)} */}
-            <View style={styles.horizontal}>
-                <Text style={styles.title}>Daily calorie intake: </Text>
-                <Text style={styles.val}>{calories}/{props.expCal}</Text>
-                <Button style={styles.btn} title='Log' onPress = {()=> showDialogBox("cal")}/>
+        <View style={styles.container}>
+            
+            <View style={styles.bottomBorder}>
+                <Text style={styles.title}>Daily calories intake: </Text>
+                <View style={styles.horizontal}>
+                    <Text style={styles.val}>{calories}/{props.expCal} calories</Text>
+                    <TouchableHighlight
+                        onPress = {()=> showDialogBox("cal")}
+                        style={styles.btnLog}
+                    >
+                        <Text style={styles.buttonText}>Log</Text>
+                    </TouchableHighlight>
+                    {/* <Button color="#ff5c5c" title='Log' onPress = {()=> showDialogBox("cal")}/> */}
+                </View>
             </View>
-            <View style={styles.horizontal}>
-                <Text style={styles.title}>Daily water intake: </Text>
-                <Text style={styles.val}>{waterGlass}/10</Text>
-                <Button style={styles.btn} title='Log' onPress = {()=> showDialogBox("water")}/>
+            <View style={styles.bottomBorder}>
+                <Text style={styles.title}>Daily water consumption: </Text>
+                <View style={styles.horizontal}>
+                    <Text style={styles.val}>{waterGlass}/10 glass</Text>
+                    <TouchableHighlight
+                        onPress = {()=> showDialogBox("water")}
+                        style={styles.btnLog}
+                    >
+                        <Text style={styles.buttonText}>Log</Text>
+                    </TouchableHighlight>
+                    {/* <Button style={styles.btn} title='Log' onPress = {()=> showDialogBox("water")}/> */}
+                </View>
             </View>
-            <View style={styles.horizontal}>
+            <View style={styles.bottomBorder}>
                 <Text style={styles.title}>Daily sleep log: </Text>
-                <Text style={styles.val}>{sleepHours}/8</Text>
-                <Button style={styles.btn} title='Log' onPress = {()=> showDialogBox("sleep")}/>
+                <View style={styles.horizontal}>
+                    <Text style={styles.val}>{sleepHours}/8 hours</Text>
+                    <TouchableHighlight
+                        onPress = {()=> showDialogBox("sleep")}
+                        style={styles.btnLog}
+                    >
+                        <Text style={styles.buttonText}>Log</Text>
+                    </TouchableHighlight>
+                    {/* <Button style={styles.btn} title='Log' onPress = {()=> showDialogBox("sleep")}/> */}
+                </View>
             </View>
-            <View style={styles.horizontal}>
+            <View style={[styles.horizontal, styles.start]}>
                 <Text style={styles.title}>Daily walking/running: </Text>
                 {/* <Text style={styles.val}>{props.walking}</Text> */}
                 <Stopwatch style={styles.val} laps start={isWalkStart} reset={resetWalk} options={options} getTime={(time) => {
                     walk = addTimes(time, walkTime)
                 }}/>
-                <Text style={styles.val}>{walkTime}</Text>
                 
             </View>
-            <View style={styles.horizontal}>
-                <Button style={styles.start} title={!isWalkStart ? 'START' : 'STOP'} onPress={() => {
+            <View style={[styles.horizontal, styles.start]}>
+                <Text style={styles.title}>Total walk time of the day: </Text>
+                <Text style={styles.val}>{walkTime}</Text>
+            </View>
+            <View style={[styles.horizontal, styles.bottomBorder]}>
+                <Button buttonStyle={styles.btnStart} titleStyle={{color:'#387ea6'}} title={!isWalkStart ? 'START' : 'STOP'} onPress={() => {
                     if(isWalkStart){
                         console.log("walk: ", walk);
                     }
@@ -169,22 +195,26 @@ const MainScrComp = (props) =>{
                     setResetWalk(false);
                 }}/>
                 
-                <Button style={styles.start} title="RESET" onPress={() => {
+                <Button buttonStyle={styles.btnStart} titleStyle={{color:'#387ea6'}} title="RESET" onPress={() => {
                     setIsWalkStart(false);
                     setResetWalk(true);
                 }}/>
                 
             </View>
             
-            <View style={styles.horizontal}>
+            <View style={[styles.horizontal, styles.start]}>
                 <Text style={styles.title}>Daily exercise: </Text>
                 <Stopwatch style={styles.val} laps start={isExerciseStart} reset={resetExercise} options={options} getTime={(time) => {
                     exercise = addTimes(time, exerciseTime)
                 }}/>
+                
+            </View>
+            <View style={[styles.horizontal, styles.start]}>
+                <Text style={styles.title}>Total workout of the day: </Text>
                 <Text style={styles.val}>{exerciseTime}</Text>
             </View>
-            <View style={styles.horizontal}>
-                <Button style={styles.start} title={!isExerciseStart ? 'START' : 'STOP'} onPress={() => {
+            <View style={[styles.horizontal, styles.bottomBorder]}>
+                <Button buttonStyle={styles.btnStart} titleStyle={{color:'#387ea6'}} title={!isExerciseStart ? 'START' : 'STOP'} onPress={() => {
                     if(isExerciseStart){
                         console.log("exercise: ", exercise);
                     }
@@ -192,7 +222,7 @@ const MainScrComp = (props) =>{
                     setResetExercise(false);
                 }}/>
                 
-                <Button style={styles.start} title="RESET" onPress={() => {
+                <Button buttonStyle={styles.btnStart} titleStyle={{color:'#387ea6'}} title="RESET" onPress={() => {
                     setIsExerciseStart(false);
                     setResetExercise(true);
                 }}/>
@@ -208,13 +238,13 @@ const MainScrComp = (props) =>{
                     />
             </View>
 
-            <Button style={styles.btnSave} title="Save" value="btn1" onPress = {() => {
+            <Button buttonStyle={styles.buttonStyle} title="Save" value="btn1" onPress = {() => {
                 (weight>0) ? weight : -1;
                 console.log("weighing here..", weight);
                 fbInsertHealthData({calories, waterGlass, walk, sleepHours, exercise, weight})
             }}/>
 
-            <Button style={styles.btnSave} title="Chart Screen" onPress={props.nav}/>
+            <Button buttonStyle={styles.buttonStyle} title="Chart Screen" onPress={props.nav}/>
 
             <Dialog.Container visible={visible}>
                 <Dialog.Title>Enter value</Dialog.Title>
@@ -229,30 +259,37 @@ const MainScrComp = (props) =>{
 }
 
 const styles = StyleSheet.create({
+    container:{
+        padding: 10,
+    },
     horizontal:{
-        // justifyContent: 'space-around',
         flexDirection: 'row',
         alignItems: 'center',
         marginVertical: 10,
     },
     title: {
-        flex: 1.5,
-        fontSize: 16,
-        fontWeight: 'bold'
-    },
-    val:{
-        flex: 1,
-        fontSize: 16,
+        flex: 3,
+        fontSize: 18,
+        fontWeight: 'bold',
         color: 'black'
     },
-    btn:{
+    val:{
+        flex: 2,
+        fontSize: 18,
+        color: '#4d9456',
+        fontWeight: 'bold'
+    },
+    btnLog:{
         flex: 0,
-        color: 'black',
     },
     buttonText: {
-        flex:0,
         fontSize: 18,
-        marginTop: 10,
+        fontWeight: '500',
+        color: '#387ea6',
+        borderColor: '#387ea6',
+        borderWidth: 2,
+        padding: 7,
+        borderRadius: 10
     },
     stopwatch: {
         flexDirection: 'row',
@@ -263,24 +300,44 @@ const styles = StyleSheet.create({
     reset:{
         flex: 1,
     },
-    btnSave: {
-        margin: 20
+    buttonStyle:{
+        marginVertical: 10,
+        marginHorizontal: 20,
+        backgroundColor:'#387ea6',
+        borderRadius: 20,
+    },
+    btnStart:{
+        marginVertical: 10,
+        marginHorizontal: 20,
+        borderColor:'#387ea6',
+        paddingVertical: 8,
+        paddingHorizontal: 15,
+        borderWidth: 2,
+        borderRadius: 20,
+        backgroundColor: 'transparent'
+    },
+    bottomBorder:{
+        borderBottomWidth: 1,
+        borderBottomColor: 'gray',
+        paddingTop: 10,
+        paddingBottom: 20,
+        paddingHorizontal: 10
+
     }
     
 });
 
 const options = {
     container: {
-      
-      padding: 5,
-      borderRadius: 5,
-      width: 200,
-      alignItems: 'center',
+        padding: 5,
+        borderRadius: 5,
+        width: 200,
+        alignItems: 'center',
     },
     text: {
       fontSize: 18,
-      color: '#000',
-      marginLeft: 7,
+      color: '#4d9456',
+      fontWeight: 'bold',
     },
   };
 

@@ -1,5 +1,5 @@
 import React , {useState, useEffect} from 'react'
-import {View, StyleSheet , ScrollView} from 'react-native'
+import {View, StyleSheet , ScrollView, ImageBackground} from 'react-native'
 import {Text, Button} from 'react-native-elements'
 
 import {fbFetch} from '../firebase/fbCRUD'
@@ -60,56 +60,59 @@ const AnalysisScreen = ({navigation}) => {
     var Recommendation_calory = (target_weight < weight) ? maintanence_calory - 500 :
              (target_weight == weight ? maintanence_calory : maintanence_calory + 500)
    
-    return <ScrollView alwaysBounceVertical={true}>
+    return (
+    <ScrollView alwaysBounceVertical={true}>
         <View style = {styles.container}>
+            <ImageBackground source={require('../assets/ig-background.png')} style={styles.backgroundImage}>
 
-<Text h4 style={styles.texts}>Your BMI: <Text style={styles.data}> {bmi.toFixed(1)} </Text></Text>
+                <Text style={styles.texts}>Your BMI: <Text style={styles.data}> {bmi.toFixed(1)} </Text></Text>
+                <Text style={styles.texts}>You are: <Text style={styles.data}>{category}</Text> </Text>
+                <Text style={styles.texts}>Ideal weight to be fit: <Text style={styles.data}>{Math.round(target_weight)}</Text> kg</Text>
+                <Text style={styles.texts}>Time to reach Ideal weight: <Text style={styles.data}>{Math.round(timeRequired)}</Text> weeks </Text>
+                <Text style={styles.texts}>With the rate of <Text style={styles.data}>0.5 kg / week</Text></Text>
+                <Text style={styles.texts}>Your Maintanance calories : <Text style={styles.data}>{parseInt(maintanence_calory)}</Text></Text>
+                <Text style={styles.texts}>Daily Calory Recommendation: <Text style={styles.data}>{parseInt(Recommendation_calory)}</Text></Text>
 
-<Text h4 style={styles.texts}>You are: <Text style={styles.data}>{category}</Text> </Text>
-<Text h4 style={styles.texts}>Ideal weight to be fit: <Text style={styles.data}>{Math.round(target_weight)}</Text> kg</Text>
-<Text h4 style={styles.texts}>Time to reach Ideal weight: <Text style={styles.data}>{Math.round(timeRequired)}</Text> weeks </Text>
-<Text h4 style={styles.texts}> with the rate of <Text style={styles.data}>0.5 kg / week</Text></Text>
-<Text h4 style={styles.texts}> Yout Maintanance calories : <Text style={styles.data}>{parseInt(maintanence_calory)}</Text></Text>
-<Text h4 style={styles.texts}> Daily Calory Recommendation: <Text style={styles.data}>{parseInt(Recommendation_calory)}</Text></Text>
-
-<Button buttonStyle={{backgroundColor:'#ff844f'}} style={styles.button} title="Show Action Items" onPress={() => 
-    { 
-    navigation.navigate('MainScreen', {
-        expectedCal: parseInt(Recommendation_calory)
-    })
-}
-}/>
-  
-
-
-</View>
-    </ScrollView>
+                <Button buttonStyle={styles.buttonStyle} title="Show Action Items" onPress={() => 
+                    { 
+                    navigation.navigate('MainScreen', {
+                        expectedCal: parseInt(Recommendation_calory)
+                    })
+                }
+                }/>
+            </ImageBackground>
+        </View>
+    </ScrollView>)
 }
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
       flexDirection:'column',
-      margin:5,
-      marginTop:20
-    },
-    textStyles:{
-        marginBottom: 50,
-        color:'grey'
+      paddingVertical: 5,
+      paddingHorizontal: 15
     },
     texts: {
-        marginVertical: 20,
+        marginVertical: 13,
         fontSize: 18,
+        fontWeight: 'bold'
         
     },
     data: {
-        color: '#8bcc25',
+        fontWeight: 'bold',
+        color: '#4d9456',
     },
-    button:{
-        marginTop:60,
-        marginHorizontal:20,
-        
-    }
+    buttonStyle:{
+        marginVertical: 80,
+        marginHorizontal: 20,
+        backgroundColor:'#387ea6',
+        borderRadius: 20,
+      },
+      backgroundImage: {
+        flex: 1, 
+        width: '100%', 
+        height: '100%'
+    },
 
 });
 

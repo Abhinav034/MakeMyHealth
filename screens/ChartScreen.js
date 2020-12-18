@@ -116,7 +116,7 @@ const ChartScreen = ({route})=>{
     
     <View style={styles.container}>
 
-  <Text h3 style={{color:'grey'}}> Your daily food intake:</Text>
+  <Text h3 style={{color:'#387ea6', fontWeight: 'bold'}}> Your daily food intake:</Text>
   {console.log('avgcal - ', avgCal, 'sleep- ', avgSleep, 'water-', avgGlasses, avgwalk, avgExe)}
   {console.log('weight- ', weights, 'dates- ', dates)}
 
@@ -155,23 +155,24 @@ const ChartScreen = ({route})=>{
 />
   </View>
 
-  <View style={{flexDirection:'row' , marginVertical:50}}>
 
-<View style={{flexDirection:'column'}}>
-<Text h5 style={{margin:10, fontSize:20}}>Avg calories intake: <Text style={{color:"#1758a3"}}>{Math.floor(avgCal*100/route.params.cal)}</Text></Text>
-<Text h5 style={{margin:10, fontSize:20}}>Avg sleep: <Text style={{color:"#1758a3"}}>{Math.floor(avgSleep*100/8)}</Text></Text>
-<Text h5 style={{margin:10 , fontSize:20}}>Avg water intake: <Text style={{color:"#1758a3"}}>{Math.floor(avgGlasses*10)}</Text></Text>
-<Text h5 style={{margin:10, fontSize:20}}>Avg exercise time: <Text style={{color:"#1758a3"}}>{Math.floor((avgExe/60).toFixed(2)*100/30)}</Text></Text>
+
+<View style={{flexDirection:'column', marginVertical:50 }}>
+  <Text style={{margin:10, fontSize:20}}>Avg calories intake: <Text style={{color:"#1758a3"}}>{Math.floor(avgCal*100/route.params.cal)} %</Text></Text>
+
+  <Text style={{margin:10, fontSize:20}}>Avg sleep: <Text style={{color:"#1758a3"}}>{Math.floor(avgSleep*100/8)} %</Text></Text>
+
+  <Text style={{margin:10 , fontSize:20}}>Avg water intake: <Text style={{color:"#1758a3"}}>{Math.floor(avgGlasses*10)} %</Text></Text>
+
+  <Text style={{margin:10, fontSize:20}}>Avg exercise time: <Text style={{color:"#1758a3"}}>{Math.floor((avgExe/60).toFixed(2)*100/30)} %</Text></Text>
+
+  <Text style={{margin:10, fontSize:20}}>Avg walk time: <Text style={{color:"#1758a3"}}>{Math.floor((avgwalk/60).toFixed(2)*100/30)} %</Text></Text>
 </View>
-<View style={{flexDirection:'column'}}>
-<Text h5 style={{margin:10, fontSize:20}}>Avg walk time: <Text style={{color:"#1758a3"}}>{Math.floor((avgwalk/60).toFixed(2)*100/30)}</Text></Text>
-</View>
 
 
 
 
-  </View>
-     <Text h3 style={{color:'grey'}} > Your weight chart:</Text>
+     <Text h3 style={{color:'#387ea6', fontWeight: 'bold'}} > Your weight chart:</Text>
      
   <LineChart
     data={linedata}

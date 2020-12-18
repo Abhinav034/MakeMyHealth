@@ -6,14 +6,15 @@ import DropDownPicker from 'react-native-dropdown-picker'
 
 const HomeComp = (props)=>{
     const [index , setIndex] = useState(0)
-    
+    let controller;
     return (
-    <View style={styles.container}>
-     
-      <ImageBackground source={require('../assets/ig-background.png')} style={styles.backgroundImage}>
-        <View style={{justifyContent:'center'}}> 
-          <Text h4 style={{marginBottom: 15 , color:"grey",marginLeft:Dimensions.get('window').width/2-55 }}>Gender</Text>
-          <ButtonGroup selectedButtonStyle={{backgroundColor:'#8bcc25'}}
+    <ImageBackground source={require('../assets/ig-background.png')} style={styles.backgroundImage}>
+      <View style={styles.container}>
+        <Text h4 style={{color: '#387ea6', marginBottom: 25, fontWeight: 'bold'}}>Please enter your details...</Text>
+        <View style={{marginBottom: 20}}> 
+          <Text h4 style={{fontWeight: 'bold', color: '#000000', marginBottom: 15}}>Gender</Text>
+          <ButtonGroup selectedButtonStyle={{backgroundColor:'#387ea6'}}
+            textStyle={{fontSize: 18}}
             onPress={index => {
               setIndex(index)
               switch(index){
@@ -31,17 +32,17 @@ const HomeComp = (props)=>{
           />
         </View>
 
-        <Text h3 style={{marginVertical: 15,marginLeft:Dimensions.get('window').width/2-55, color:"grey"}}>Height</Text>
-        <View style={{flexDirection:'row' , width:Dimensions.get('window').width , marginBottom: 20 , marginTop:18}}>
-          <Text h4 style={{marginTop:4 , marginRight:3 , marginLeft: 0, color:'grey'}}>Ft:</Text>
+        <Text h4 style={{marginTop: 20, color: '#000000',fontWeight: 'bold', zIndex: 1}}>Height</Text>
+        <View style={{flexDirection:'row',alignItems:'center', marginTop:15, justifyContent: 'center'}}>
+          <Text style={{marginHorizontal:5, fontSize: 18,}}>Ft:</Text>
           <InputSpinner
             rounded={false}
             showBorder
-            color={'#ff844f'}
+            color={'#387ea6'}
             fontSize={18}
-            inputStyle={{color:'#ff844f'}}
+            inputStyle={{color:'#000000'}}
             height={35}
-            width={Dimensions.get('window').width/2-50}
+            width={Dimensions.get('window').width/2-30}
             max={8}
             min={0}
             step={1}
@@ -52,15 +53,17 @@ const HomeComp = (props)=>{
                 props.feetChanged(num);
             }}
           />
-          <Text h4 style={{marginTop:4 , marginHorizontal:3, color:'grey'}}>In:</Text>
+        </View>
+        <View style={{flexDirection:'row',alignItems:'center', marginVertical: 20, justifyContent: 'center'}}>
+          <Text h5 style={{marginHorizontal:5, fontSize: 18}}>In:</Text>
           <InputSpinner
             rounded={false}
             showBorder
-            color={'#ff844f'}
+            color={'#387ea6'}
             fontSize={18}
-            inputStyle={{color:'#ff844f'}}
+            inputStyle={{color:'#000000'}}
             height={35}
-            width={Dimensions.get('window').width/2-50}
+            width={Dimensions.get('window').width/2-30}
             max={11}
             min={0}
             step={1}
@@ -72,18 +75,19 @@ const HomeComp = (props)=>{
             }}
           />
         </View>
-        <View style={{alignItems:'center'}}>
-          <Text h3 style={{marginVertical: 30 , color:"grey"}}>Weight</Text>
-          <View style={{flexDirection:'row' , paddingRight:65}}>
-            <Text h4 style={{marginTop:4 , marginHorizontal:20 , color:'grey'}}>Kg:</Text>
+        <View style={{marginTop: 20}}>
+          <Text h4 style={{fontWeight: 'bold'}}>Weight</Text>
+          
+          <View style={{flexDirection:'row', alignItems: 'center', marginTop: 15, marginBottom: 20, justifyContent: 'center'}}>
+            <Text h5 style={{marginHorizontal: 5, fontSize: 18}}>Kg:</Text>
             <InputSpinner
               rounded={false}
               showBorder
-              color={'#ff844f'}
-              fontSize={20}
-              inputStyle={{color:'#ff844f'}}
+              color={'#387ea6'}
+              fontSize={18}
+              inputStyle={{color:'#000000'}}
               height={35}
-              width={Dimensions.get('window').width/2}
+              width={Dimensions.get('window').width/2-30}
               max={200}
               min={0}
               step={1}
@@ -95,16 +99,17 @@ const HomeComp = (props)=>{
               }}
             />
           </View>
-          <Text h3 style={{marginVertical: 30 , color:"grey"}}>Age</Text>
-          <View style={{marginHorizontal: 70}}>
+          <Text h4 style={{marginTop: 20, fontWeight: 'bold'}}>Age</Text>
+          <View style={{flexDirection:'row', alignItems: 'center', marginTop: 15, marginBottom: 20, justifyContent: 'center'}}>
+            <Text h5 style={{marginHorizontal: 5, fontSize: 18}}>Yrs:</Text>
             <InputSpinner
               rounded={false}
               showBorder
-              color={'#ff844f'}
-              fontSize={20}
-              inputStyle={{color:'#ff844f'}}
+              color={'#387ea6'}
+              fontSize={18}
+              inputStyle={{color:'#000000'}}
               height={35}
-              width={Dimensions.get('window').width/2}
+              width={Dimensions.get('window').width/2-30}
               max={100}
               min={0}
               step={1}
@@ -118,7 +123,8 @@ const HomeComp = (props)=>{
           </View>
         </View>
 
-        <View style={{marginTop: 30,height:100}}>
+        <View style={{marginTop: 20, height: 200}}>
+          <Text h4 style={{fontWeight: 'bold', marginBottom: 30}}>Lifestyle</Text>
           <DropDownPicker
             items={[
                 {label: 'sedentary (little or no exercise)', value: 1.2 , color:'white'},
@@ -128,38 +134,44 @@ const HomeComp = (props)=>{
                 {label: 'extra active(very hard exercise/sports & physical job or 2x training) ', value: 1.9}
 
             ]}
-        
+            
             placeholder='lightly active (light exercise/sports 1-3 days/week)'
-            labelStyle={{color:'#ff844f'}}
-            dropDownMaxHeight={200}
+            labelStyle={{color: '#336339', fontSize: 16}}
+            dropDownMaxHeight={100}
             defaultValue={props.lifestyle}
             containerStyle={{height: 40}}
-            style={{backgroundColor: 'transparent'}}
+            style={{backgroundColor: 'white', position: 'absolute'}}
 
             itemStyle={{
                 justifyContent: 'flex-start',
             }}
             
-            dropDownStyle={{backgroundColor: 'white'}}
+            dropDownStyle={{backgroundColor: 'transparent', zIndex: 0}}
             onChangeItem={item => props.lifestyleChanged(item.value)}
           />
         </View>
+        
+        
         <Button buttonStyle={styles.buttonStyle} title="Analyse" onPress={props.analyseButtonPressed} />
-      </ImageBackground>
-    </View>
+      
+      </View>
+    </ImageBackground>
   )
 }
 
 const styles = StyleSheet.create({
   container:{
-    padding: 0,
+    padding: 15,
+    top: 0,
   },
   textStyles:{
     marginBottom: 10,
   },
   buttonStyle:{
-    marginTop: 40,
-    backgroundColor:'#ff844f'
+    marginVertical: 30,
+    marginHorizontal: 20,
+    backgroundColor:'#387ea6',
+    borderRadius: 20,
   },
   backgroundContainer: {
     flex: 1,

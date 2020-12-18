@@ -23,8 +23,11 @@ function HomeStackScreen(){
   return(
     <HomeStack.Navigator>
       <HomeStack.Screen name="HomeScreen" component={HomeScreen} options={{
-        title:'Bio',
+        title:'Enter your details',
         headerLeft:null,
+        headerTitleStyle:{
+          color:'black',
+        },
       }}/>
       <HomeStack.Screen name="AnalysisScreen" component={AnalysisScreen} options={{
         title:'Analysis'
@@ -82,8 +85,8 @@ const Tab = createBottomTabNavigator();
 function tabScreens() {
     return  <Tab.Navigator
     tabBarOptions={{
-      activeTintColor: '#8bcc25',
-      inactiveTintColor: 'lightgrey',
+      activeTintColor: '#336339',
+      inactiveTintColor: 'grey',
       activeBackgroundColor: '#fff',
       inactiveBackgroundColor: '#fff',
          style:{

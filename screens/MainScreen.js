@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {View, StyleSheet , ScrollView} from 'react-native'
+import {View, StyleSheet , ScrollView, ImageBackground} from 'react-native'
 import {Text, Button} from 'react-native-elements'
 import MainScrComp from '../components/MainScrComponent'
 import {fbfetchHealthData} from '../firebase/fbCRUD'
@@ -12,34 +12,30 @@ const MainScreen = ({navigation, route}) => {
             cal:expectedCalories
         })
     }
-    return <View style={styles.container}>
-
-       <ScrollView>
-       <MainScrComp
-            expCal = {expectedCalories}
-            nav = {navPressed}
-                
-                   
-        
-        />
-       </ScrollView>
-        
-    </View>
-}
-
-
-
-MainScreen.navigationOptions = () => {
-    return{
-        title: 'Your log'
-    }
+    return (
+    <ScrollView alwaysBounceVertical={true}>
+        <View style={styles.container}>
+        <ImageBackground source={require('../assets/ig-background.png')} style={styles.backgroundImage}>
+            <MainScrComp
+                expCal = {expectedCalories}
+                nav = {navPressed}        
+            />
+            </ImageBackground>
+        </View>
+    </ScrollView>
+    )
 }
 
 const styles = StyleSheet.create({
     container: {
-      flex: 0.9,
-      margin:20
+      flex: 1,
     },
+    backgroundImage: {
+        flex: 1, 
+        width: '100%', 
+        height: '100%'
+    },
+
 
 });
 

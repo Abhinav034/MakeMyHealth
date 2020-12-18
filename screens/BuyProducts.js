@@ -58,13 +58,14 @@ const BuyProductsScreen = ({navigation})=>{
                 <View style={{flexDirection:'row', paddingRight:10}}>
                  <Image style={{width: 130,height: 130}} source={{uri:item.image}}></Image>
                 <View>
-                <Text style={{color:'#242424'}} h4>{item.title.length<20?item.title:item.title.substring(0, 30)}</Text>
+                <Text style={{color:'#242424'}} h4>{item.title.length<25?item.title:item.title.substring(0, 25)}...</Text>
                 <Text h4 style={{marginRight: 20 , color:'#242424' ,marginTop:10}}>CAD$ {item.price}</Text>
                  <Text h4 style={{color:'grey' , marginTop:5}}>Rating {item.rating}</Text>
                 </View>
                 </View>
                 </View>
                 </TouchableOpacity>
+                
             }}
             
             
